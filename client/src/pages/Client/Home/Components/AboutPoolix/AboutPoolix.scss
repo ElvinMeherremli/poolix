@@ -1,0 +1,173 @@
+.AboutPoolix-section {
+  width: 100%;
+  padding-top: 100px;
+
+
+  .wrapper {
+    .image {
+      overflow: hidden;
+      width: 520px;
+      margin: 0 auto;
+
+      img {
+        transition: .5s;
+
+        &:hover {
+          transform: scale(1.1);
+        }
+      }
+    }
+
+    .content {
+      .title-top {
+        color: #ff5c00;
+        margin-bottom: 8px;
+        display: inline-block;
+        position: relative;
+        font-family: 'Playfair Display';
+        font-style: italic;
+        font-weight: 600;
+        font-size: 22px;
+        line-height: 29px;
+      }
+
+      .title {
+        font-size: 50px;
+        font-weight: 400 !important;
+        line-height: 1.2;
+        font-weight: normal;
+        margin: 0px;
+        background: none;
+        color: #003B5A;
+        font-family: 'Oswald';
+      }
+
+      .descr {
+        font-size: 16px;
+        color: #6E6E6E;
+        line-height: 1.8;
+        margin-bottom: 30px;
+        font-family: Inter;
+        margin-top: 25px;
+      }
+
+      .unit {
+        margin-top: 45px;
+
+        .box {
+          .box-title {
+            font-weight: normal;
+            line-height: 1.25em;
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-weight: 700;
+            background: none;
+            color: #003B5A;
+            font-family: 'Oswald', sans-serif;
+          }
+
+          .box-title-bottom {
+            font-size: 16px;
+            color: #003B5A;
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-family: inter;
+          }
+
+          .box-descr {
+            font-size: 16px;
+            color: #6E6E6E;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            font-family: inter;
+          }
+
+          ul {
+            li {
+              margin-bottom: 8px;
+              height: 24px;
+              align-items: center;
+              font-family: inter;
+              display: flex;
+              font-size: 16px;
+              gap: 7px;
+
+              svg {
+                color: #ff5c00;
+                font-size: 18px;
+              }
+            }
+          }
+
+          .inner-btn {
+            margin-top: 20px;
+            position: relative;
+            display: inline-flex;
+            overflow: hidden;
+            padding: 17px 45px 16px;
+            text-align: center;
+            z-index: 1;
+            color: #ffffff;
+            text-transform: uppercase;
+            transition: .5s;
+            background-color: #FF5C02;
+            font-family: 'Oswald';
+            font-style: normal;
+            font-weight: 600;
+            font-size: 16px;
+
+            span {
+              position: absolute;
+              display: block;
+              width: 0;
+              height: 0;
+              border-radius: 50%;
+              background-color: #2C2A49;
+              transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+              transform: translate(-50%, -50%);
+              z-index: -1;
+              top: 50%;
+              left: 50%;
+            }
+
+            &:hover span {
+              width: 400px;
+              height: 400px;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .container {
+    position: relative;
+
+    .shape-1 {
+      position: absolute;
+      right: -60px;
+      top: -80px;
+      transition: transform 0.2s ease-out;
+
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+    .shape-2 {
+      position: absolute;
+      left: 0;
+      bottom: -70px;
+      transition: transform 0.2s ease-out;
+
+      img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+
+      }
+    }
+  }
+}

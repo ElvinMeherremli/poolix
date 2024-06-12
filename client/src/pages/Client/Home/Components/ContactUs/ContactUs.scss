@@ -1,0 +1,61 @@
+.ContactUs-section {
+  width: 100%;
+
+  .wrapper {
+    width: 100%;
+    background: linear-gradient(225deg, rgba(0, 0, 0, 0.40) 0%, rgba(0, 0, 0, 0.40) 100%), url(https://html.tonatheme.com/2023/poolix/assets/images/background/bg-1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    height: 550px;
+    padding: 140px 0;
+
+    h2 {
+      font-size: 50px;
+      font-weight: 900;
+      line-height: 1.2;
+      color: white;
+      font-size: 70px;
+      text-align: center;
+    }
+
+    .inner-btn {
+      display: block !important;
+      margin: 0 auto;
+      margin-top: 20px;
+      position: relative;
+      display: inline-flex;
+      overflow: hidden;
+      padding: 17px 45px 16px;
+      text-align: center;
+      z-index: 1;
+      color: #ffffff;
+      text-transform: uppercase;
+      transition: .5s;
+      background-color: #FF5C02;
+      font-family: 'Oswald';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+
+      span {
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background-color: #2C2A49;
+        transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+      }
+
+      &:hover span {
+        width: 400px;
+        height: 400px;
+      }
+    }
+  }
+}

@@ -1,0 +1,182 @@
+.MainTop-section {
+  position: relative;
+  .content-outer {
+    cursor:grab;
+    .box1 {
+      width: 100%;
+      background: linear-gradient(225deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url(https://html.tonatheme.com/2023/poolix/assets/images/main-slider/banner-1.jpg);
+      background-position: left;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .box2 {
+      width: 100%;
+      background: linear-gradient(225deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url(https://html.tonatheme.com/2023/poolix/assets/images/main-slider/banner-2.jpg);
+      background-position: left;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    .box3 {
+      width: 100%;
+      background: linear-gradient(225deg, rgba(0, 0, 0, 0.50) 0%, rgba(0, 0, 0, 0.50) 100%), url(https://html.tonatheme.com/2023/poolix/assets/images/main-slider/banner-3.jpg);
+      background-position: left;
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .content-box {
+      height: 110vh;
+      padding-left: 130px;
+      display: flex;
+      align-items: center;
+      h4 {
+        margin-top: 50px;
+        margin-bottom: 15px;
+        font-family: 'Rubik';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 15px;
+        display: inline-block;
+        color: #fff;
+        padding: 6px 20px;
+        position: relative;
+        z-index: 1;
+        margin-left: 5px;
+        letter-spacing: 0.2em;
+
+        &::before {
+          position: absolute;
+          content: '';
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          background: #00C6DB;
+          transform: skewX(-10deg);
+          z-index: -1;
+        }
+      }
+
+      h1 {
+        position: relative;
+        margin-bottom: 20px;
+        color: #ffffff;
+        font-family: 'Oswald';
+        font-style: normal;
+        font-weight: 700;
+        font-size: 90px;
+        margin-bottom: 20px;
+        line-height: 1;
+      }
+
+      p {
+        font-size: 18px;
+        font-weight: 500;
+        line-height: 32px;
+        color: #ffffff;
+        font-family: Inter;
+      }
+
+      .inner-btn {
+        margin-top: 20px;
+        position: relative;
+        display: inline-flex;
+        overflow: hidden;
+        padding: 17px 45px 16px;
+        text-align: center;
+        z-index: 1;
+        color: #ffffff;
+        text-transform: uppercase;
+        transition: .5s;
+        background-color: #FF5C02;
+        font-family: 'Oswald';
+        font-style: normal;
+        font-weight: 600;
+        font-size: 16px;
+
+        span {
+          position: absolute;
+          display: block;
+          width: 0;
+          height: 0;
+          border-radius: 50%;
+          background-color: #2C2A49;
+          transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+          transform: translate(-50%, -50%);
+          z-index: -1;
+          top: 50%;
+          left: 50%;
+        }
+
+        &:hover span {
+          width: 400px;
+          height: 400px;
+        }
+      }
+
+    }
+  }
+
+  .swiper-button-prev {
+    width: 50px;
+    &::after {
+      display: none;
+    }
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    text-align: center;
+    background: #ffffff;
+    cursor: pointer;
+    z-index: 9;
+    font-size: 15px;
+    transition: .5s;
+    border: 2px solid #fff;
+    color: #333;
+    background-image: url('../../../../../../public/svg/arrow-left-solid.svg'); 
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    margin-left: 20px;
+    &:hover {
+      background-image: url('../../../../../../public/svg/arrow-left-solid-white.svg'); 
+      background-color: #FF5C00;
+      border: 2px solid #FF5C00;
+      color: white;
+    }
+  }
+  .swiper-button-next {
+    &::after {
+      display: none;
+    }
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    text-align: center;
+    background: #ffffff;
+    cursor: pointer;
+    z-index: 9;
+    font-size: 15px;
+    transition: .5s;
+    border: 2px solid #fff;
+    color: #333;
+    background-image: url('../../../../../../public/svg/arrow-right-solid.svg'); 
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 20px;
+    margin-right: 20px;
+    &:hover {
+      background-color: #FF5C00;
+      border: 2px solid #FF5C00;
+      color: white;
+      background-image: url('../../../../../../public/svg/arrow-right-solid-white.svg'); 
+
+    }
+  }
+  .banner-shape {
+    position: absolute;
+    bottom: 0;
+    z-index: 99;
+    width: 100%;
+  }
+}
