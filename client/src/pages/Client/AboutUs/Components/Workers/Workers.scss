@@ -1,0 +1,205 @@
+.Workers_about-section {
+  padding-top: 155px;
+  width: 100%;
+
+  .title-top {
+    color: #ff5c00;
+    margin-bottom: 8px;
+    text-align: center;
+    position: relative;
+    font-family: 'Playfair Display';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 29px;
+  }
+
+  .title {
+    color: #003B5A;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 40px;
+    text-align: center;
+  }
+
+  .card {
+    box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+    text-align: center;
+    margin-bottom: 30px;
+    position: relative;
+    width: 300px;
+    height: 520px;
+
+    .image {
+      position: relative;
+
+      &:hover .icon-area ul li {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .share-icon {
+        position: absolute;
+        right: 50px;
+        box-shadow: 0px -15px 50px rgb(0 0 0 / 15%);
+        height: 46px;
+        width: 46px;
+        text-align: center;
+        line-height: 49px;
+        margin: 0 auto;
+        transition: .5s;
+        cursor: pointer;
+        font-size: 18px;
+        color: #ff5c00;
+        background-color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        bottom: 0;
+        right: 30px;
+        transform: translateY(50%);
+        z-index: 1;
+        font-size: 20px;
+        overflow: hidden;
+
+        &:hover {
+          background-color: #ff975b;
+        }
+
+        svg {
+          transition: .3s;
+        }
+
+        &:hover::before {
+          transform: scale(1.5);
+        }
+
+        &:hover svg {
+          color: white !important;
+        }
+
+        &::before {
+          position: absolute;
+          content: '';
+          width: 100%;
+          height: 100%;
+          left: 0px;
+          top: 0px;
+          transform: scale(0, 0);
+          border-radius: 50%;
+          z-index: -1;
+          transition: all 500ms ease;
+          background: #ff5c00;
+        }
+
+
+      }
+
+      .icon-area {
+        position: absolute;
+        bottom: 35px;
+        right: 30px;
+
+        ul {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          li {
+            box-shadow: 0px -15px 50px rgb(0 0 0 / 15%);
+            height: 46px;
+            width: 46px;
+            text-align: center;
+            line-height: 49px;
+            margin: 0 auto;
+            transition: opacity 0.5s, transform 0.5s;
+            cursor: pointer;
+            font-size: 16px;
+            color: #ff5c00;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transform: translateY(10px);
+            opacity: 0;
+            z-index: 1;
+            font-size: 20px;
+            overflow: hidden;
+
+            &:hover {
+              background-color: #ff975b;
+            }
+
+            svg {
+              transition: .3s;
+              font-size: 15px;
+            }
+
+            &:hover::before {
+              transform: scale(1.5);
+            }
+
+            &:hover svg {
+              color: white !important;
+            }
+
+            &::before {
+              position: absolute;
+              content: '';
+              width: 100%;
+              height: 100%;
+              left: 0px;
+              top: 0px;
+              transform: scale(0, 0);
+              border-radius: 50%;
+              z-index: -1;
+              transition: all 500ms ease;
+              background: #ff5c00;
+            }
+          }
+
+          .instagram-ico {
+            transition-delay: 0.3s;
+          }
+
+          .twitter-ico {
+            transition-delay: 0.2s;
+          }
+
+          .facebook-ico {
+            transition-delay: 0.1s;
+          }
+        }
+      }
+    }
+
+    .content {
+      padding: 35px 0 18px;
+      width: 300px;
+      height: 200px;
+
+      .content-title {
+        color: #003B5A;
+        font-size: 24px;
+        font-weight: 700;
+      }
+      .content-worker-position {
+        font-size: 16px;
+        line-height: 1.8;
+        color: #ff5c00;
+        font-family: inter;
+        font-weight: 300;
+        margin-bottom: 10px;
+      }
+      .content-descr {
+        width: 210px;
+        margin: 0 auto;
+        font-size: 16px;
+        color: #6E6E6E;
+        line-height: 1.8;
+        font-family: inter !important;
+      }
+    }
+  }
+}

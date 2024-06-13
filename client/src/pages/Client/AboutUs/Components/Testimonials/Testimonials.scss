@@ -1,0 +1,128 @@
+.Testimonials_about-section {
+  width: 100%;
+  padding-top: 135px;
+
+  .wrapper {
+    position: relative;
+
+    .title-top {
+      color: #ff5c00;
+      margin-bottom: 8px;
+      display: inline-block;
+      position: relative;
+      font-family: 'Playfair Display';
+      font-style: italic;
+      font-weight: 600;
+      font-size: 22px;
+      line-height: 29px;
+    }
+
+    .title {
+      font-size: 50px;
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 40px;
+      color: #003B5A
+    }
+
+    img {
+      height: 500px;
+      object-fit: cover;
+    }
+
+  }
+
+  .slider {
+    height: 300px;
+    .swiper {
+      bottom: 300px;
+    }
+    .testimonial-card {
+      bottom: 300px;
+      background: #FFFFFF;
+      padding: 80px;
+      padding-top: 100px;
+      box-shadow: 0px 10px 80px rgba(0, 0, 0, 0.07);
+      margin-top: 45px;
+      box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+      position: relative;
+      bottom: 0;
+      margin-bottom: 200px;
+      margin-left: 100px;
+      max-width: 740px;
+      .stars {
+        display: flex;
+        gap: 5px;
+        margin-bottom: 25px;
+        i {
+          color: #FFC93D;
+        }
+      }
+      .quotes-ico {
+        background: #ff5c00;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0px 20px 60px 10px rgba(0, 0, 0, 0.07);
+        bottom: 0;
+        width: 80px;
+        height: 80px;
+        text-align: center;
+        color: #fff;
+        line-height: 80px;
+        position: absolute;
+        right: 150px;
+        font-size: 35px;
+        top: -40px;
+      }
+      .descr {
+        color: #6E6E6E;
+        line-height: 1.8;
+        font-family: inter;
+        font-size: 20px;
+        margin-bottom: 20px;
+      }
+      .testimonial-name {
+        .name {
+          color: #003B5A;
+          font-weight: 500;
+          font-size: 20px;
+          font-family: oswald;
+        }
+        span {
+          font-family: inter;
+          color: #6e6e6e;
+        }
+      }
+    }
+  }
+  .swiper-pagination {
+    bottom: 270px !important;
+    left: 1000px;
+    width: 40% !important;
+    .swiper-pagination-bullet {
+      width: 37px;
+      height: 37px;
+      background: transparent;
+      opacity: 1;
+      margin: 0 2px !important;
+      position: relative;
+      border: 1.5px solid transparent;
+
+      &::before {
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        left: 13.5px;
+        top: 13.5px;
+        background: #ff5c00;
+        content: '';
+        border-radius: 50%;
+      }
+    }
+
+    .swiper-pagination-bullet-active {
+      border-color: rgba(255, 92, 0, 0.5);
+    }
+  }
+}

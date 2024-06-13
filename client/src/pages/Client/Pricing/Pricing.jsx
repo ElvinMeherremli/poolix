@@ -1,6 +1,12 @@
+import MainTop from "./Components/MainTop/MainTop"
+import PricingTable from "./Components/PricingTable/PricingTable"
+
 function Pricing() {
   return (
-    <div>Pricing</div>
+    <>
+      <MainTop/>
+      <PricingTable/>
+    </>
   )
 }
 export default Pricing
