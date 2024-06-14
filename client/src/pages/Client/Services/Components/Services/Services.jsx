@@ -19,19 +19,10 @@ function Services() {
         <h2 className="title">
           Swimming Pool Facilities <br /> & Services
         </h2>
-        <Swiper
-          style={{ cursor: "grab" }}
-          slidesPerView={4}
-          spaceBetween={15}
-          pagination={{
-            clickable: true,
-          }}
-          modules={[Pagination]}
-          className="mySwiper"
-        >
+        <div className="row">
           {serviceApiData
             ? serviceApiData.map((elem) => (
-                <SwiperSlide>
+                <div className="col-lg-3 col-md-6 col-sm-12">
                   <div className="card">
                     <div className="image">
                       <img src={elem.img} alt="" />
@@ -53,35 +44,10 @@ function Services() {
                       </div>
                     </div>
                   </div>
-                </SwiperSlide>
+                </div>
               ))
             : ""}
-          {/* <SwiperSlide>
-            <div className="card">
-              <div className="image">
-                <img
-                  src="https://html.tonatheme.com/2023/poolix/assets/images/resource/service-2.jpg"
-                  alt=""
-                />
-              </div>
-              <div className="conent">
-                <div className="circle">
-                  <FaSwimmingPool />
-                </div>
-                <h3 className="mt-[20px]">Drain & Clean</h3>
-                <div className="block-overlay">
-                  <button className="circle">
-                    <img src={arrsvg} alt="" />
-                  </button>
-                  <h3 className="overlay-title">Drain & Clean</h3>
-                  <p className="overlay-descr">
-                    Lorem ipsum dolor amet coset <br /> etur adipiscing elit.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </SwiperSlide> */}
-        </Swiper>
+        </div>
       </div>
     </div>
   );
