@@ -1,0 +1,70 @@
+.ContactInfo-contact_section {
+  padding-top: 140px;
+  .title-top {
+    font-family: 'Playfair Display';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 29px;
+    margin-bottom: 8px;
+    color: #ff5c00;
+    text-align: center;
+  }
+  .title {
+    color: #013B5A;
+    text-align: center;
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 105px;
+  }
+  .card { 
+    background: #F7F7F5;
+    padding: 0px 30px 47px 30px;
+    position: relative;
+    transition: all 500ms ease;
+    &:hover {
+      transform: translateY(-12px);
+    }
+    .circle {
+      width: 90px;
+      height: 90px;
+      line-height: 90px;
+      font-size: 40px;
+      color: #fff;
+      background: #ff5c00;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      border-radius: 50%;
+      margin-top: -45px;
+      margin-bottom: 30px;
+    }
+    .card-title {
+      padding-top: 70px;
+      font-size: 24px;
+      line-height: 32px;
+      font-weight: 600;
+      margin-bottom: 15px;
+      color: #013B5A;
+      text-align: center;
+    }
+    .descr {
+      text-align: center;
+      font-family: inter;
+      font-weight: 300;
+      color: #6E6E6E;
+      a {
+        font-family: inter;
+        transition: .3s;
+        &:hover {
+          color: #ff5c00;
+        }
+      }
+    }
+  }
+}

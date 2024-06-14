@@ -1,0 +1,109 @@
+.GetInTouch-contact_section {
+  padding-top: 145px;
+
+  .title-top {
+    font-family: 'Playfair Display';
+    font-style: italic;
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 29px;
+    text-align: center;
+    color: #ff5c00;
+    margin-bottom: 8px;
+  }
+
+  .title {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    color: #013B5A;
+  }
+
+  .outer {
+    position: relative;
+    .vector-1 {
+      position: absolute;
+      right: 80px;
+      top: -180px;
+    }
+    .vector-2 {
+      position: absolute;
+      bottom: -30px;
+      left: 20px;
+    }
+    .form-inner {
+      background: #fff;
+      max-width: 740px;
+      width: 100%;
+      margin: 0 auto;
+      box-shadow: 0px 0px 120px rgba(0, 0, 0, 0.1);
+      padding: 70px;
+      margin-top: 50px;
+      form {
+        input {
+          background: #ffffff;
+          width: 100%;
+          height: 50px;
+          padding: 0 20px;
+          border: 1px solid #E5E5E5;
+          font-family: 'Inter';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          color: #6E6E6E;
+          outline: none;
+        }
+        textarea {
+          background: #ffffff;
+          width: 100%;
+          height: 50px;
+          padding: 10px 20px;
+          border: 1px solid #E5E5E5;
+          font-family: 'Inter';
+          font-style: normal;
+          font-weight: 400;
+          font-size: 16px;
+          color: #6E6E6E;
+          outline: none;
+        }
+        .inner-btn {
+          margin: 0 auto;
+          position: relative;
+          display: block;
+          overflow: hidden;
+          padding: 17px 45px 16px;
+          text-align: center;
+          z-index: 1;
+          color: #ffffff;
+          text-transform: uppercase;
+          transition: .5s;
+          background-color: #FF5C02;
+          font-family: 'Oswald';
+          font-style: normal;
+          font-weight: 600;
+          font-size: 16px;
+  
+          span {
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background-color: #2C2A49;
+            transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+            transform: translate(-50%, -50%);
+            z-index: -1;
+            top: 50%;
+            left: 50%;
+          }
+  
+          &:hover span {
+            width: 400px;
+            height: 400px;
+          }
+        }
+      }
+    }
+  }
+}
