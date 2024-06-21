@@ -46,6 +46,13 @@ const testimonialSchema = new mongoose.Schema(
     whoIs: String,
   }
 );
+//? Portfolio
+const portfolioSchema = new mongoose.Schema(
+  {
+    img: String,
+  }
+);
+
 
 //] model
 //? services
@@ -54,6 +61,9 @@ const serviceModel = mongoose.model("Service", serviceSchema);
 const workerModel = mongoose.model("Worker", workerSchema);
 //? Testimonials
 const testimonialModel = mongoose.model("Testimonial", testimonialSchema);
+//? Portfolio
+const portfolioModel = mongoose.model("Portfolio", portfolioSchema);
+
 
 //] requests
 //? services
@@ -364,6 +374,115 @@ app.delete("/api/testimonials", async (req, res) => {
   let response;
   try {
     response = await testimonialModel.deleteMany({});
+  } catch (error) {
+    res.send({
+      message: "error",
+      error: error,
+    });
+  }
+
+  if (response.deletedCount > 0) {
+    res.send({
+      message: "success",
+      deletedCount: response.deletedCount,
+    });
+  } else {
+    res.send({
+      message: "no documents to delete",
+    });
+  }
+});
+
+//? Portfolio
+app.get("/api/portfolio", async (req, res) => {
+  const { title } = req.query;
+  let portfolio;
+  if (title) portfolio = await portfolioModel.find({ title: title });
+  else portfolio = await portfolioModel.find();
+
+  if (portfolio.length > 0) {
+    res.status(200).send({
+      message: "success",
+      data: portfolio,
+    });
+  } else {
+    res.status(204).send({
+      message: "not found",
+      data: null,
+    });
+  }
+});
+app.get("/api/portfolio/:id", async (req, res) => {
+  const { id } = req.params;
+  let portfolio;
+  try {
+    portfolio = await portfolioModel.findById(id);
+  } catch (error) {
+    res.send({ error: error });
+  }
+
+  if (portfolio) {
+    res.status(200).send({
+      message: "success",
+      data: portfolio,
+    });
+  } else {
+    res.status(204).status({
+      message: "not found",
+      data: null,
+    });
+  }
+});
+app.post("/api/portfolio", async (req, res) => {
+  const Portfolio = new portfolioModel(req.body);
+  await Portfolio.save();
+  res.send(Portfolio);
+});
+app.patch("/api/portfolio/:id", async (req, res) => {
+  const { id } = req.params;
+  let response;
+  try {
+    response = await portfolioModel.findByIdAndUpdate(id, req.body, { new: true });
+  } catch (error) {
+    res.send({ error: error });
+  }
+  if (response) {
+    res.send({
+      message: "updated",
+      data: response,
+    });
+  } else {
+    res.send({
+      message: "not found",
+      data: null,
+    });
+  }
+});
+app.delete("/api/portfolio/:id", async (req, res) => {
+  const { id } = req.params;
+  let response;
+  try {
+    response = await portfolioModel.findByIdAndDelete(id);
+  } catch (error) {
+    res.send({
+      message: "not found",
+    });
+  }
+  if (response) {
+    res.send({
+      message: "deleted",
+      response: response,
+    });
+  } else {
+    res.send({
+      message: "fatal error (doesn't delete...)",
+    });
+  }
+});
+app.delete("/api/portfolio", async (req, res) => {
+  let response;
+  try {
+    response = await portfolioModel.deleteMany({});
   } catch (error) {
     res.send({
       message: "error",
