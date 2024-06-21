@@ -10,6 +10,7 @@ import AddServices from "../pages/Admin/AddServices/AddServices";
 import LoginAdmin from "../pages/Admin/LoginAdmin/LoginAdmin";
 
 import LayoutPageAdmin from "../pages/Admin/LayoutPageAdmin";
+import ServiceDetail from "../pages/Client/Details/Service-Detail/ServiceDetail";
 
 export const ROUTES = [
   {
@@ -35,6 +36,14 @@ export const ROUTES = [
       {
         path: "/services",
         element: <Services />,
+      },
+      {
+        path: "/services",
+        element: <Services />,
+      },
+      {
+        path: "/service-detail/:id",
+        element: <ServiceDetail />,
       },
       {
         path: "/shop",

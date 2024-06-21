@@ -22,7 +22,6 @@ function App() {
       setTestimonialApiData(res.data.data);
     });
   }, []);
-  console.log(TestimonialApiData);
   return (
     <>
       <WorkerApi.Provider value={{ WorkerApiData, setWorkerApiData }}>

@@ -20,36 +20,37 @@ const serviceSchema = new mongoose.Schema(
       descrBenefits: String,
       benefitsArray: [String],
     },
+    imageCollection: [String],
     solutions: {
       descrSolutions: String,
     },
   },
   { timestamps: true }
 );
-//? worlkers
+//? workers
 const workerSchema = new mongoose.Schema(
   {
     img: String,
     name: String,
     position: String,
-    descr: String
+    descr: String,
   },
   { timestamps: true }
-)
+);
 //? Testimonials
 const testimonialSchema = new mongoose.Schema(
   {
     rating: Number,
     descr: String,
     name: String,
-    whoIs: String
+    whoIs: String,
   }
-)
+);
 
 //] model
 //? services
 const serviceModel = mongoose.model("Service", serviceSchema);
-//? worlkers
+//? workers
 const workerModel = mongoose.model("Worker", workerSchema);
 //? Testimonials
 const testimonialModel = mongoose.model("Testimonial", testimonialSchema);
@@ -100,6 +101,26 @@ app.post("/api/services", async (req, res) => {
   await Service.save();
   res.send(Service);
 });
+app.patch("/api/services/:id", async (req, res) => {
+  const { id } = req.params;
+  let response;
+  try {
+    response = await serviceModel.findByIdAndUpdate(id, req.body, { new: true });
+  } catch (error) {
+    res.send({ error: error });
+  }
+  if (response) {
+    res.send({
+      message: "updated",
+      data: response,
+    });
+  } else {
+    res.send({
+      message: "not found",
+      data: null,
+    });
+  }
+});
 app.delete("/api/services/:id", async (req, res) => {
   const { id } = req.params;
   let response;
@@ -117,7 +138,7 @@ app.delete("/api/services/:id", async (req, res) => {
     });
   } else {
     res.send({
-      message: "fatal error (doesnt deleted...)",
+      message: "fatal error (doesn't delete...)",
     });
   }
 });
@@ -189,6 +210,26 @@ app.post("/api/workers", async (req, res) => {
   await Worker.save();
   res.send(Worker);
 });
+app.patch("/api/workers/:id", async (req, res) => {
+  const { id } = req.params;
+  let response;
+  try {
+    response = await workerModel.findByIdAndUpdate(id, req.body, { new: true });
+  } catch (error) {
+    res.send({ error: error });
+  }
+  if (response) {
+    res.send({
+      message: "updated",
+      data: response,
+    });
+  } else {
+    res.send({
+      message: "not found",
+      data: null,
+    });
+  }
+});
 app.delete("/api/workers/:id", async (req, res) => {
   const { id } = req.params;
   let response;
@@ -206,7 +247,7 @@ app.delete("/api/workers/:id", async (req, res) => {
     });
   } else {
     res.send({
-      message: "fatal error (doesnt deleted...)",
+      message: "fatal error (doesn't delete...)",
     });
   }
 });
@@ -278,6 +319,26 @@ app.post("/api/testimonials", async (req, res) => {
   await Testimonial.save();
   res.send(Testimonial);
 });
+app.patch("/api/testimonials/:id", async (req, res) => {
+  const { id } = req.params;
+  let response;
+  try {
+    response = await testimonialModel.findByIdAndUpdate(id, req.body, { new: true });
+  } catch (error) {
+    res.send({ error: error });
+  }
+  if (response) {
+    res.send({
+      message: "updated",
+      data: response,
+    });
+  } else {
+    res.send({
+      message: "not found",
+      data: null,
+    });
+  }
+});
 app.delete("/api/testimonials/:id", async (req, res) => {
   const { id } = req.params;
   let response;
@@ -295,7 +356,7 @@ app.delete("/api/testimonials/:id", async (req, res) => {
     });
   } else {
     res.send({
-      message: "fatal error (doesnt deleted...)",
+      message: "fatal error (doesn't delete...)",
     });
   }
 });
@@ -334,6 +395,6 @@ app.listen(process.env.PORT, function (err) {
     process.env.PORT,
     "\n\nhttp://localhost:1212/api/services",
     "\nhttp://localhost:1212/api/workers",
-    "\nhttp://localhost:1212/api/testimonials",
+    "\nhttp://localhost:1212/api/testimonials"
   );
 });

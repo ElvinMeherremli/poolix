@@ -9,11 +9,13 @@ import "swiper/css/pagination";
 import "./Services.scss";
 import arrsvg from "../../../../../../public/svg/arrow-right-solid-white.svg";
 import { ServiceApi } from "../../../../../context/ContextApi";
+import { useNavigate } from "react-router-dom";
 
 function Services() {
+  const navigate = useNavigate()
   const { serviceApiData, setServiceApiData } = useContext(ServiceApi);
   return (
-    <div className="Services_services-section">
+    <div className="Services_home-section">
       <div className="container max-w-[1320px]">
         <p className="title-top">Services</p>
         <h2 className="title">
@@ -42,7 +44,9 @@ function Services() {
                       </div>
                       <h3 className="mt-[20px]">{elem.title}</h3>
                       <div className="block-overlay">
-                        <button className="circle">
+                        <button onClick={() => {
+                          navigate(`service-detail/${elem._id}`)
+                        }} className="circle">
                           <img src={arrsvg} alt="" />
                         </button>
                         <h3 className="overlay-title">Drain & Clean</h3>
