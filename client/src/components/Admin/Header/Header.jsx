@@ -30,7 +30,7 @@ function Header() {
             <span style={{ color: "#9ab8b7", marginLeft: 15 }}>admin</span>
           </Typography>
           <Button color="inherit">
-            <Link to={"add"}>Add</Link>
+            <Link to={"servides"}>Services</Link>
           </Button>
         </Toolbar>
       </AppBar>

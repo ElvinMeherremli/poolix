@@ -1,0 +1,86 @@
+.AddServices-admin-section {
+  *{
+    font-family: inter;
+  }
+  .add-services {
+    .dropzone {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: border-color 0.3s ease;
+    }
+
+    .dropzone p {
+      font-family: inter;
+      color: #003e3c;
+    }
+
+    .dropzone.border-orange-500 {
+      border-color: #ff5c00;
+    }
+
+    .relative {
+      position: relative;
+    }
+
+    .absolute {
+      position: absolute;
+    }
+
+    .top-0 {
+      top: 0;
+    }
+
+    .right-0 {
+      right: 0;
+    }
+
+    .inner-a-btn {
+      margin-left: 40px;
+      margin-top: 20px;
+      position: relative;
+      overflow: hidden;
+      padding: 10px 40px 10px;
+      text-align: center;
+      z-index: 1;
+      color: #003E3C;
+      text-transform: uppercase;
+      transition: .5s;
+      background-color: #FF5C0200;
+      border: 2px solid #003E3C;
+      font-family: 'Oswald';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+
+      &:hover {
+        border: 2px solid #F6F6F4;
+        color: #F6F6F4;
+      }
+
+      span {
+        position: absolute;
+        display: block;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background-color: #003E3C;
+        transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        top: 50%;
+        left: 50%;
+      }
+
+      &:hover span {
+        width: 400px;
+        height: 400px;
+      }
+    }
+  }
+
+  .table-services{
+    
+  }
+}

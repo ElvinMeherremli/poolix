@@ -47,16 +47,28 @@ function Content({ serverData }) {
                   {serverData.benefits.descrBenefits}
                 </p>
                 <ul>
-                  {serverData.benefits.benefitsArray &&
-                    serverData.benefits.benefitsArray.map((elem) => (
-                      <li>
-                        <i
-                          class="fa-solid fa-check"
-                          style={{ color: "#ff5c00", marginRight: 10 }}
-                        ></i>
-                        {elem}
-                      </li>
-                    ))}
+                  <li>
+                    <i
+                      class="fa-solid fa-check"
+                      style={{ color: "#ff5c00", marginRight: 10 }}
+                    ></i>
+                    Olympic Size Pool
+                  </li>
+                  <li>
+                    <i
+                      class="fa-solid fa-check"
+                      style={{ color: "#ff5c00", marginRight: 10 }}
+                    ></i>
+                    Food & Drinks Service
+                  </li>
+                  <li>
+                    <i
+                      class="fa-solid fa-check"
+                      style={{ color: "#ff5c00", marginRight: 10 }}
+                    ></i>
+                    Relax Atmosphere
+
+                  </li>
                 </ul>
               </div>
               <div className="solutions-insection">

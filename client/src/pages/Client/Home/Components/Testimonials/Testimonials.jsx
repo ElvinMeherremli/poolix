@@ -11,7 +11,6 @@ import { TestimonialApi } from "../../../../../context/ContextApi";
 
 function Testimonials() {
   const { TestimonialApiData } = useContext(TestimonialApi);
-  console.log(TestimonialApiData);
   return (
     <div className="Testimonials-section">
       <div className="container max-w-[1320px]">

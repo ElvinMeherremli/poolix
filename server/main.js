@@ -9,21 +9,31 @@ const mongoose = require("mongoose");
 app.use(cors());
 app.use(bodyParser.json());
 
+app.use(bodyParser.json({ limit: '100mb' }));
+app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
+
+
 //] schema
 //? services
+const ImageSchema = new mongoose.Schema({
+  path: { type: String, required: true },
+  preview: { type: String, required: true }
+});
+
 const serviceSchema = new mongoose.Schema(
   {
-    img: String,
-    title: String,
-    descr: String,
+    title: { type: String, required: true },
+    descr: { type: String, required: true },
+    img: { type: String, required: true },
     benefits: {
-      descrBenefits: String,
-      benefitsArray: [String],
+      descrBenefits: { type: String, required: true },
     },
-    imageCollection: [String],
     solutions: {
-      descrSolutions: String,
+      descrSolutions: { type: String, required: true },
     },
+    imageCollection: [],
   },
   { timestamps: true }
 );
@@ -38,21 +48,16 @@ const workerSchema = new mongoose.Schema(
   { timestamps: true }
 );
 //? Testimonials
-const testimonialSchema = new mongoose.Schema(
-  {
-    rating: Number,
-    descr: String,
-    name: String,
-    whoIs: String,
-  }
-);
+const testimonialSchema = new mongoose.Schema({
+  rating: Number,
+  descr: String,
+  name: String,
+  whoIs: String,
+});
 //? Portfolio
-const portfolioSchema = new mongoose.Schema(
-  {
-    img: String,
-  }
-);
-
+const portfolioSchema = new mongoose.Schema({
+  img: String,
+});
 
 //] model
 //? services
@@ -63,7 +68,6 @@ const workerModel = mongoose.model("Worker", workerSchema);
 const testimonialModel = mongoose.model("Testimonial", testimonialSchema);
 //? Portfolio
 const portfolioModel = mongoose.model("Portfolio", portfolioSchema);
-
 
 //] requests
 //? services
@@ -111,11 +115,14 @@ app.post("/api/services", async (req, res) => {
   await Service.save();
   res.send(Service);
 });
+
 app.patch("/api/services/:id", async (req, res) => {
   const { id } = req.params;
   let response;
   try {
-    response = await serviceModel.findByIdAndUpdate(id, req.body, { new: true });
+    response = await serviceModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
   } catch (error) {
     res.send({ error: error });
   }
@@ -333,7 +340,9 @@ app.patch("/api/testimonials/:id", async (req, res) => {
   const { id } = req.params;
   let response;
   try {
-    response = await testimonialModel.findByIdAndUpdate(id, req.body, { new: true });
+    response = await testimonialModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
   } catch (error) {
     res.send({ error: error });
   }
@@ -442,7 +451,9 @@ app.patch("/api/portfolio/:id", async (req, res) => {
   const { id } = req.params;
   let response;
   try {
-    response = await portfolioModel.findByIdAndUpdate(id, req.body, { new: true });
+    response = await portfolioModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
   } catch (error) {
     res.send({ error: error });
   }
