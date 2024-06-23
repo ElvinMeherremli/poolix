@@ -64,7 +64,7 @@ export const ROUTES = [
         element: <LoginAdmin/>
       },
       {
-        path: 'servides',
+        path: 'services',
         element: <AddServices/>
       },
     ],

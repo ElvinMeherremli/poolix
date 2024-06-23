@@ -1,6 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
+import { TextField, IconButton } from "@mui/material";
 import { useDropzone } from "react-dropzone";
-import "./AddServices.scss"; // Ensure you have the appropriate styles
+import DeleteIcon from "@mui/icons-material/Delete";
+import Textarea from "@mui/joy/Textarea";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
@@ -38,16 +40,17 @@ function AddServices() {
       imageCollection: [],
     },
     validationSchema: validationSchema,
-    onSubmit: async (values) => {
-      try {
-        const response = await axios.post("http://localhost:1212/api/services", values);
-        toast.success("Successfully added service!");
-        setServiceApiData([...serviceApiData, response.data]); // Add new service to the list
-        formik.resetForm(); // Reset the form after successful submission
-      } catch (error) {
-        toast.error("Failed to add service!");
-        console.error(error);
-      }
+    onSubmit: (values) => {
+      axios.post("http://localhost:1212/api/services", values)
+        .then((response) => {
+          setServiceApiData([...serviceApiData, response.data]); // Обновление данных после успешного добавления
+          toast.success("Successfully added!");
+          // Опционально: сброс значений формы здесь, если нужно
+        })
+        .catch((error) => {
+          toast.error("Failed to add service.");
+          console.error("Error adding service:", error);
+        });
     },
   });
 
@@ -69,10 +72,41 @@ function AddServices() {
     },
   });
 
+  const {
+    getRootProps: getSolutionRootProps,
+    getInputProps: getSolutionInputProps,
+    isDragActive: isSolutionDragActive,
+  } = useDropzone({
+    accept: {
+      "image/jpeg": [".jpg", ".jpeg"],
+      "image/png": [".png"],
+      "image/webp": [".webp"],
+      "image/heif": [".heif"],
+    },
+    onDrop: (acceptedFiles) => {
+      const updatedSolutionFiles = acceptedFiles.map((file) =>
+        Object.assign(file, { preview: URL.createObjectURL(file) })
+      );
+      formik.setFieldValue("imageCollection", [
+        ...formik.values.imageCollection,
+        ...updatedSolutionFiles,
+      ]);
+    },
+  });
+
   const handleRemoveFile = () => {
     setFile(null);
     formik.setFieldValue("img", "");
   };
+
+  function getFirstSentence(text) {
+    const sentenceEnd = /[.!?]/;
+    const match = sentenceEnd.exec(text);
+    if (match) {
+      return text.substring(0, match.index + 1);
+    }
+    return text;
+  }
 
   const handleRemoveSolutionFile = (fileName) => {
     const updatedSolutionFiles = formik.values.imageCollection.filter(
@@ -81,14 +115,22 @@ function AddServices() {
     formik.setFieldValue("imageCollection", updatedSolutionFiles);
   };
 
-  const getFirstSentence = (text) => {
-    const sentenceEnd = /[.!?]/;
-    const match = sentenceEnd.exec(text);
-    if (match) {
-      return text.substring(0, match.index + 1);
-    }
-    return text;
+  const handleDelete = (id) => {
+    axios.delete(`http://localhost:1212/api/services/${id}`)
+      .then(() => {
+        // Удаление элемента из состояния
+        setServiceApiData(serviceApiData.filter(item => item._id !== id));
+        toast.success("Successfully deleted!");
+      })
+      .catch((error) => {
+        toast.error("Failed to delete service.");
+        console.error("Error deleting service:", error);
+      });
   };
+
+  useEffect(() => {
+    // Fetch initial data or update serviceApiData as needed
+  }, []);
 
   return (
     <div className="AddServices-admin-section">
@@ -98,10 +140,226 @@ function AddServices() {
             Add Services
           </h2>
           <form onSubmit={formik.handleSubmit}>
-            {/* Form content */}
+            <div className="flex justify-center flex-row gap-10 mt-2">
+              <div className="unit">
+                <TextField
+                  id="outlined-basic"
+                  label="Title"
+                  name="title"
+                  variant="outlined"
+                  className="w-[300px] mt-3"
+                  onChange={formik.handleChange}
+                  value={formik.values.title}
+                  error={formik.touched.title && Boolean(formik.errors.title)}
+                />
+                <br />
+                <span
+                  style={{
+                    color: "#D3302F",
+                    fontSize: 12,
+                    fontFamily: "roboto",
+                    marginLeft: 10,
+                  }}
+                >
+                  {formik.touched.title && formik.errors.title}
+                </span>
+                <Textarea
+                  color="neutral"
+                  disabled={false}
+                  minRows={2}
+                  placeholder="Description"
+                  size="lg"
+                  variant="outlined"
+                  name="descr"
+                  className="w-[300px] mt-1"
+                  onChange={formik.handleChange}
+                  value={formik.values.descr}
+                  error={formik.touched.descr && Boolean(formik.errors.descr)}
+                />
+                <span
+                  style={{
+                    color: "#D3302F",
+                    fontSize: 12,
+                    fontFamily: "roboto",
+                    marginLeft: 10,
+                  }}
+                >
+                  {formik.touched.descr && formik.errors.descr}
+                </span>
+                <div
+                  {...getRootProps()}
+                  className={`dropzone mt-1 p-4 border-dashed border-2 rounded w-[300px] mx-auto ${
+                    isDragActive ? "border-orange-500" : "border-gray-300"
+                  }`}
+                >
+                  <input {...getInputProps()} />
+                  {isDragActive ? (
+                    <p>Drop the preview image</p>
+                  ) : (
+                    <p>
+                      Drag & drop a{" "}
+                      <span style={{ color: "#FF5C02", fontFamily: "inter" }}>
+                        preview image
+                      </span>
+                      , or click to select a file
+                    </p>
+                  )}
+                </div>
+                {formik.touched.img && formik.errors.img && (
+                  <p className="text-red-500">{formik.errors.img}</p>
+                )}
+                {file && (
+                  <div className="relative p-2 mt-4">
+                    <img
+                      src={file.preview}
+                      alt={file.name}
+                      className="h-32 w-32 object-cover mx-auto"
+                    />
+                    <IconButton
+                      className="absolute top-0 right-0"
+                      onClick={handleRemoveFile}
+                    >
+                      <DeleteIcon style={{ color: "red" }} />
+                    </IconButton>
+                  </div>
+                )}
+              </div>
+              <div className="unit">
+                <div className="benefits-input mt-3 flex max-w-[300px] gap-2">
+                  <h3
+                    style={{ fontFamily: "inter", color: "#003E3C" }}
+                    className="mt-1 font-medium"
+                  >
+                    Benefits:
+                  </h3>
+                  <div className="area">
+                    <Textarea
+                      color="neutral"
+                      disabled={false}
+                      minRows={2}
+                      placeholder="Benefits Description"
+                      size="md"
+                      variant="outlined"
+                      name="benefits.descrBenefits"
+                      className="mt-1"
+                      onChange={formik.handleChange}
+                      value={formik.values.benefits.descrBenefits}
+                      error={
+                        formik.touched.benefits?.descrBenefits &&
+                        Boolean(formik.errors.benefits?.descrBenefits)
+                      }
+                    />
+                    <span
+                      style={{
+                        color: "#D3302F",
+                        fontSize: 12,
+                        fontFamily: "roboto",
+                        marginLeft: 10,
+                      }}
+                    >
+                      {formik.touched.benefits?.descrBenefits &&
+                        formik.errors.benefits?.descrBenefits}
+                    </span>
+                  </div>
+                </div>
+                <div className="solutions-input flex max-w-[300px] gap-2">
+                  <h3
+                    style={{ fontFamily: "inter", color: "#003E3C" }}
+                    className="mt-1 font-medium"
+                  >
+                    Solutions:
+                  </h3>
+                  <div className="area">
+                    <Textarea
+                      color="neutral"
+                      disabled={false}
+                      minRows={2}
+                      placeholder="Solutions Description"
+                      size="md"
+                      variant="outlined"
+                      name="solutions.descrSolutions"
+                      className="mt-1"
+                      onChange={formik.handleChange}
+                      value={formik.values.solutions.descrSolutions}
+                      error={
+                        formik.touched.solutions?.descrSolutions &&
+                        Boolean(formik.errors.solutions?.descrSolutions)
+                      }
+                    />
+                    <span
+                      style={{
+                        color: "#D3302F",
+                        fontSize: 12,
+                        fontFamily: "roboto",
+                        marginLeft: 10,
+                      }}
+                    >
+                      {formik.touched.solutions?.descrSolutions &&
+                        formik.errors.solutions?.descrSolutions}
+                    </span>
+                  </div>
+                </div>
+                <div
+                  {...getSolutionRootProps()}
+                  className={`dropzone mt-[15px] p-4 border-dashed border-2 rounded w-[300px] mx-auto ${
+                    isSolutionDragActive
+                      ? "border-orange-500"
+                      : "border-gray-300"
+                  }`}
+                >
+                  <input {...getSolutionInputProps()} />
+                  {isSolutionDragActive ? (
+                    <p>Drop the Image Collection here...</p>
+                  ) : (
+                    <p>
+                      Drag & drop{" "}
+                      <span style={{ color: "#FF5C02", fontFamily: "inter" }}>
+                        image collection
+                      </span>
+                      , or click to select files
+                    </p>
+                  )}
+                </div>
+                {formik.touched.imageCollection &&
+                  formik.errors.imageCollection && (
+                    <p className="text-red-500">
+                      {formik.errors.imageCollection}
+                    </p>
+                  )}
+                <div className="flex flex-wrap mt-4 w-[300px]">
+                  {formik.values.imageCollection.map((file) => (
+                    <div key={file.name} className="relative p-2">
+                      <img
+                        src={file.preview}
+                        alt={file.name}
+                        className="h-32 w-32 object-cover"
+                      />
+                      <IconButton
+                        className="absolute top-0 right-0"
+                        onClick={() => handleRemoveSolutionFile(file.name)}
+                      >
+                        <DeleteIcon style={{ color: "red" }} />
+                      </IconButton>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className="inner-a-btn mt-2 d-block mx-auto"
+            >
+              Add
+              <span></span>
+            </button>
           </form>
         </div>
-        <div className="table-services mt-20">
+        <div
+          className="table-services mt-20"
+          style={{ borderTop: "1px solid #00000020" }}
+        >
           <h2 className="title text-center font-sans mt-10 font-bold text-4xl text-[#003E3C]">
             Services Info
           </h2>
@@ -111,13 +369,13 @@ function AddServices() {
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                   <tr>
                     <th scope="col" className="px-6 py-3">
-                      Preview image
+                      preview image
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Title
+                      title
                     </th>
                     <th scope="col" className="px-6 py-3">
-                      Description
+                      descr
                     </th>
                     <th scope="col" className="px-6 py-3"></th>
                     <th scope="col" className="px-6 py-3"></th>
@@ -143,16 +401,7 @@ function AddServices() {
                         <td className="px-6 py-4">
                           <button
                             type="button"
-                            onClick={async () => {
-                              try {
-                                await axios.delete(`http://localhost:1212/api/services/${elem._id}`);
-                                toast.success("Successfully deleted!");
-                                setServiceApiData(serviceApiData.filter((service) => service._id !== elem._id));
-                              } catch (error) {
-                                toast.error("Error deleting service!");
-                                console.error(error);
-                              }
-                            }}
+                            onClick={() => handleDelete(elem._id)}
                             className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
                           >
                             Delete
