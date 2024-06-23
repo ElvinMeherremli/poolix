@@ -58,6 +58,14 @@ const testimonialSchema = new mongoose.Schema({
 const portfolioSchema = new mongoose.Schema({
   img: String,
 });
+//? users
+const UsersSchema = new mongoose.Schema({
+  role: String,
+  username: String,
+  password: String,
+  img: String,
+  busket: []
+});
 
 //] model
 //? services
@@ -68,8 +76,121 @@ const workerModel = mongoose.model("Worker", workerSchema);
 const testimonialModel = mongoose.model("Testimonial", testimonialSchema);
 //? Portfolio
 const portfolioModel = mongoose.model("Portfolio", portfolioSchema);
+//? users
+const userModel = mongoose.model("User", UsersSchema);
+
 
 //] requests
+//? users
+app.get("/api/users", async (req, res) => {
+  const { title } = req.query;
+  let users;
+  if (title) users = await userModel.find({ title: title });
+  else users = await userModel.find();
+
+  if (users.length > 0) {
+    res.status(200).send({
+      message: "success",
+      data: users,
+    });
+  } else {
+    res.status(204).send({
+      message: "not found",
+      data: null,
+    });
+  }
+});
+app.get("/api/users/:id", async (req, res) => {
+  const { id } = req.params;
+  let users;
+  try {
+    users = await userModel.findById(id);
+  } catch (error) {
+    res.send({ error: error });
+  }
+
+  if (users) {
+    res.status(200).send({
+      message: "success",
+      data: users,
+    });
+  } else {
+    res.status(204).status({
+      message: "not found",
+      data: null,
+    });
+  }
+});
+app.post("/api/users", async (req, res) => {
+  const User = new userModel(req.body);
+  await User.save();
+  res.send(User);
+});
+app.patch("/api/users/:id", async (req, res) => {
+  const { id } = req.params;
+  let response;
+  try {
+    response = await userModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+  } catch (error) {
+    res.send({ error: error });
+  }
+  if (response) {
+    res.send({
+      message: "updated",
+      data: response,
+    });
+  } else {
+    res.send({
+      message: "not found",
+      data: null,
+    });
+  }
+});
+app.delete("/api/users/:id", async (req, res) => {
+  const { id } = req.params;
+  let response;
+  try {
+    response = await userModel.findByIdAndDelete(id);
+  } catch (error) {
+    res.send({
+      message: "not found",
+    });
+  }
+  if (response) {
+    res.send({
+      message: "deleted",
+      response: response,
+    });
+  } else {
+    res.send({
+      message: "fatal error (doesn't delete...)",
+    });
+  }
+});
+app.delete("/api/users", async (req, res) => {
+  let response;
+  try {
+    response = await userModel.deleteMany({});
+  } catch (error) {
+    res.send({
+      message: "error",
+      error: error,
+    });
+  }
+
+  if (response.deletedCount > 0) {
+    res.send({
+      message: "success",
+      deletedCount: response.deletedCount,
+    });
+  } else {
+    res.send({
+      message: "no documents to delete",
+    });
+  }
+});
 //? services
 app.get("/api/services", async (req, res) => {
   const { title } = req.query;
@@ -115,7 +236,6 @@ app.post("/api/services", async (req, res) => {
   await Service.save();
   res.send(Service);
 });
-
 app.patch("/api/services/:id", async (req, res) => {
   const { id } = req.params;
   let response;

@@ -7,9 +7,11 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
+import './Header.scss'
 function Header() {
+  const navigate = useNavigate();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "#003e3c" }}>
@@ -27,13 +29,26 @@ function Header() {
           </IconButton>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             POOLIX{" "}
-            <span style={{ color: "#9ab8b7", marginLeft: 15 }}>admin</span>
+            <span style={{ color: "#9ab8b7", marginLeft: 15, fontFamily: 'inter'}}>admin</span>
           </Typography>
           <Button color="inherit">
             <Link to={"services"}>Services</Link>
           </Button>
+          <Button
+            onClick={() => {
+              sessionStorage.removeItem("user");
+              navigate("/admin");
+              toast("you logged out successfully!", {
+                icon: "🔙",
+              });
+            }}
+            color="inherit"
+          >
+            Log Out
+          </Button>
         </Toolbar>
       </AppBar>
+      <Toaster position="top-center" reverseOrder={false} />
     </Box>
   );
 }

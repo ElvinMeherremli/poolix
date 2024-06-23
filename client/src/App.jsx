@@ -7,6 +7,7 @@ import {
   PortfolioApi,
   ServiceApi,
   TestimonialApi,
+  UserApi,
   WorkerApi,
 } from "./context/ContextApi";
 
@@ -17,6 +18,7 @@ function App() {
   const [serviceApiData, setServiceApiData] = useState();
   const [TestimonialApiData, setTestimonialApiData] = useState();
   const [PortfolioApiData, setPortfolioApiData] = useState();
+  const [UserApiData, setUserApiData] = useState();
   useEffect(() => {
     axios.get("http://localhost:1212/api/services").then((res) => {
       setServiceApiData(res.data.data);
@@ -30,22 +32,27 @@ function App() {
     axios.get("http://localhost:1212/api/portfolio").then((res) => {
       setPortfolioApiData(res.data.data);
     });
+    axios.get("http://localhost:1212/api/users").then((res) => {
+      setUserApiData(res.data.data);
+    });
   }, []);
   return (
     <>
-      <WorkerApi.Provider value={{ WorkerApiData, setWorkerApiData }}>
-        <TestimonialApi.Provider
-          value={{ TestimonialApiData, setTestimonialApiData }}
-        >
-          <ServiceApi.Provider value={{ serviceApiData, setServiceApiData }}>
-            <PortfolioApi.Provider
-              value={{ PortfolioApiData, setPortfolioApiData }}
-            >
-              <RouterProvider router={router} />
-            </PortfolioApi.Provider>
-          </ServiceApi.Provider>
-        </TestimonialApi.Provider>
-      </WorkerApi.Provider>
+      <UserApi.Provider value={{ UserApiData, setUserApiData }}>
+        <WorkerApi.Provider value={{ WorkerApiData, setWorkerApiData }}>
+          <TestimonialApi.Provider
+            value={{ TestimonialApiData, setTestimonialApiData }}
+          >
+            <ServiceApi.Provider value={{ serviceApiData, setServiceApiData }}>
+              <PortfolioApi.Provider
+                value={{ PortfolioApiData, setPortfolioApiData }}
+              >
+                <RouterProvider router={router} />
+              </PortfolioApi.Provider>
+            </ServiceApi.Provider>
+          </TestimonialApi.Provider>
+        </WorkerApi.Provider>
+      </UserApi.Provider>
     </>
   );
 }

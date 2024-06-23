@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { TextField, IconButton } from "@mui/material";
 import { useDropzone } from "react-dropzone";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -26,6 +26,19 @@ const validationSchema = Yup.object().shape({
 function AddServices() {
   const { serviceApiData, setServiceApiData } = useContext(ServiceApi);
   const navigate = useNavigate();
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if (user && user.role === "admin") {
+      setIsAdmin(true);
+    } else {
+      toast.error("Access denied: Admins only");
+      navigate("/admin");
+    }
+  }, [navigate]);
+
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -43,9 +56,8 @@ function AddServices() {
     onSubmit: (values) => {
       axios.post("http://localhost:1212/api/services", values)
         .then((response) => {
-          setServiceApiData([...serviceApiData, response.data]); // Обновление данных после успешного добавления
+          setServiceApiData([...serviceApiData, response.data]);
           toast.success("Successfully added!");
-          // Опционально: сброс значений формы здесь, если нужно
         })
         .catch((error) => {
           toast.error("Failed to add service.");
@@ -118,7 +130,6 @@ function AddServices() {
   const handleDelete = (id) => {
     axios.delete(`http://localhost:1212/api/services/${id}`)
       .then(() => {
-        // Удаление элемента из состояния
         setServiceApiData(serviceApiData.filter(item => item._id !== id));
         toast.success("Successfully deleted!");
       })
@@ -131,6 +142,10 @@ function AddServices() {
   useEffect(() => {
     // Fetch initial data or update serviceApiData as needed
   }, []);
+
+  if (!isAdmin) {
+    return null; // Или можно рендерить компонент с сообщением об отказе в доступе
+  }
 
   return (
     <div className="AddServices-admin-section">
