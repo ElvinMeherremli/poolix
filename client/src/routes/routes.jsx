@@ -11,6 +11,10 @@ import LoginAdmin from "../pages/Admin/LoginAdmin/LoginAdmin";
 
 import LayoutPageAdmin from "../pages/Admin/LayoutPageAdmin";
 import ServiceDetail from "../pages/Client/Details/Service-Detail/ServiceDetail";
+import Cart from "../pages/Client/Cart/Cart";
+import Users from "../pages/Admin/Users/Users";
+import Login from "../pages/Client/Login/Login";
+import Register from "../pages/Client/Register/Register";
 
 export const ROUTES = [
   {
@@ -34,6 +38,10 @@ export const ROUTES = [
         element: <Pricing />,
       },
       {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
         path: "/services",
         element: <Services />,
       },
@@ -53,6 +61,14 @@ export const ROUTES = [
         path: "/blog",
         element: <Blog />,
       },
+      {
+        path: 'login',
+        element: <Login/>
+      },
+      {
+        path: 'register',
+        element: <Register/>
+      },
     ],
   },
   {
@@ -66,6 +82,10 @@ export const ROUTES = [
       {
         path: 'services',
         element: <AddServices/>
+      },
+      {
+        path: 'users',
+        element: <Users/>
       },
     ],
   },

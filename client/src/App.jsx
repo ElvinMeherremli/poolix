@@ -4,12 +4,14 @@ import { ROUTES } from "./routes/routes";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import {
+  CartApi,
   PortfolioApi,
   ServiceApi,
   TestimonialApi,
   UserApi,
   WorkerApi,
 } from "./context/ContextApi";
+import { BasketContextProvider } from "./context/BaksetContext";
 
 const router = createBrowserRouter(ROUTES);
 
@@ -19,6 +21,7 @@ function App() {
   const [TestimonialApiData, setTestimonialApiData] = useState();
   const [PortfolioApiData, setPortfolioApiData] = useState();
   const [UserApiData, setUserApiData] = useState();
+  const [CartApiData, setCartApiData] = useState();
   useEffect(() => {
     axios.get("http://localhost:1212/api/services").then((res) => {
       setServiceApiData(res.data.data);
@@ -35,23 +38,32 @@ function App() {
     axios.get("http://localhost:1212/api/users").then((res) => {
       setUserApiData(res.data.data);
     });
+    axios.get("http://localhost:1212/api/cart").then((res) => {
+      setCartApiData(res.data.data);
+    });
   }, []);
   return (
     <>
       <UserApi.Provider value={{ UserApiData, setUserApiData }}>
-        <WorkerApi.Provider value={{ WorkerApiData, setWorkerApiData }}>
-          <TestimonialApi.Provider
-            value={{ TestimonialApiData, setTestimonialApiData }}
-          >
-            <ServiceApi.Provider value={{ serviceApiData, setServiceApiData }}>
-              <PortfolioApi.Provider
-                value={{ PortfolioApiData, setPortfolioApiData }}
+        <CartApi.Provider value={{ CartApiData, setCartApiData }}>
+          <BasketContextProvider>
+            <WorkerApi.Provider value={{ WorkerApiData, setWorkerApiData }}>
+              <TestimonialApi.Provider
+                value={{ TestimonialApiData, setTestimonialApiData }}
               >
-                <RouterProvider router={router} />
-              </PortfolioApi.Provider>
-            </ServiceApi.Provider>
-          </TestimonialApi.Provider>
-        </WorkerApi.Provider>
+                <ServiceApi.Provider
+                  value={{ serviceApiData, setServiceApiData }}
+                >
+                  <PortfolioApi.Provider
+                    value={{ PortfolioApiData, setPortfolioApiData }}
+                  >
+                    <RouterProvider router={router} />
+                  </PortfolioApi.Provider>
+                </ServiceApi.Provider>
+              </TestimonialApi.Provider>
+            </WorkerApi.Provider>
+          </BasketContextProvider>
+        </CartApi.Provider>
       </UserApi.Provider>
     </>
   );

@@ -9,7 +9,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import HomeIcon from "@mui/icons-material/Home";
 import { Link, useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
-import './Header.scss'
 function Header() {
   const navigate = useNavigate();
   return (
@@ -33,6 +32,9 @@ function Header() {
           </Typography>
           <Button color="inherit">
             <Link to={"services"}>Services</Link>
+          </Button>
+          <Button color="inherit">
+            <Link to={"users"}>Users</Link>
           </Button>
           <Button
             onClick={() => {

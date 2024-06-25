@@ -1,0 +1,17 @@
+.cart-section {
+  * {
+    font-family: inter;
+  }
+  table {
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;  
+  }
+  .total {
+    width: 400px;
+    margin: 0 auto;
+    display: flex;
+    margin-top: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}

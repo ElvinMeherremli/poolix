@@ -1,0 +1,13 @@
+.Login-section {
+  *{
+    font-family: inter;
+  }
+  button {
+    margin-top: 20px !important;
+    background-color: #ff5000 !important;
+    transition: .3s;
+    &:hover {
+      background-color: #e64a02 !important;
+    }
+  }
+}

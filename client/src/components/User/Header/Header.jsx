@@ -1,17 +1,25 @@
-import { Link } from "react-router-dom";
+import { FaRegUser } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 import { BsCart2 } from "react-icons/bs";
-import { FiPhone } from "react-icons/fi";
 import "./Header.scss";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { BasketContext } from "../../../context/BaksetContext";
+
 function Header() {
+  const { basket } = useContext(BasketContext);
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
+  const [flexDirection, setFlexDirection] = useState("column");
+  const [username, setUsername] = useState(null);
 
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
         setScrolled(true);
+        setFlexDirection("row");
       } else {
         setScrolled(false);
+        setFlexDirection("column");
       }
     };
 
@@ -19,6 +27,33 @@ function Header() {
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    const updateUser = () => {
+      const user = JSON.parse(localStorage.getItem("user")) || JSON.parse(sessionStorage.getItem("user"));
+      if (user) {
+        setUsername(user.username);
+      } else {
+        setUsername(null);
+      }
+    };
+
+    updateUser(); // вызываем updateUser сразу для инициализации
+
+    const handleStorageChange = (event) => {
+      // Проверяем, что изменилось именно хранилище пользователя
+      if (event.key === "user") {
+        updateUser();
+      }
+    };
+
+    // Слушаем событие storage
+    window.addEventListener("storage", handleStorageChange);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
     };
   }, []);
 
@@ -55,25 +90,51 @@ function Header() {
             </nav>
           </div>
           <div className="right-column">
-            <div className="cart">
+            <button
+              onClick={() => {
+                navigate("/cart");
+              }}
+              className="cart"
+            >
               <div className="circle">
-                <span className="count">0</span>
+                <span className="count">{basket.length}</span>
                 <BsCart2 />
               </div>
-            </div>
-            <div className="phone">
+            </button>
+            <button className="phone">
               <div className="circle">
-                <FiPhone />
+                <FaRegUser />
               </div>
-            </div>
-            <div className="numbers">
-              <p>CALL US NOW!</p>
-              <a href="tel:+912136660027">+91-213-666-0027</a>
-            </div>
+            </button>
+            {username ? (
+              <div className="username">
+                {username}
+              </div>
+            ) : (
+              <div className="prof-btns" style={{ flexDirection: flexDirection }}>
+                <button
+                  onClick={() => {
+                    navigate("login");
+                  }}
+                  className="login-btn"
+                >
+                  Log In <span></span>
+                </button>
+                <button
+                  onClick={() => {
+                    navigate("register");
+                  }}
+                  className="register-btn"
+                >
+                  Register <span></span>
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
     </div>
   );
 }
+
 export default Header;

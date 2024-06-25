@@ -1,0 +1,19 @@
+.swal2-title, .swal2-confirm {
+  font-family: inter;
+}
+.Register-section {
+  *{
+    font-family: inter;
+  }
+  input {
+    outline: none;
+  }
+  button {
+    margin-top: 0 !important;
+    background-color: #024B72 !important;
+    transition: .3s;
+    &:hover {
+      background-color: #025c8c !important;
+    }
+  }
+}
