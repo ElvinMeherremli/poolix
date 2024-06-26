@@ -15,6 +15,7 @@ import Cart from "../pages/Client/Cart/Cart";
 import Users from "../pages/Admin/Users/Users";
 import Login from "../pages/Client/Login/Login";
 import Register from "../pages/Client/Register/Register";
+import Profile from "../pages/Client/Profile/Profile";
 
 export const ROUTES = [
   {
@@ -68,6 +69,10 @@ export const ROUTES = [
       {
         path: 'register',
         element: <Register/>
+      },
+      {
+        path: 'profile',
+        element: <Profile/>
       },
     ],
   },

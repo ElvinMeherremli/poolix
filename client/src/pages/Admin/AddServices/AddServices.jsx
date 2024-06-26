@@ -140,11 +140,11 @@ function AddServices() {
   };
 
   useEffect(() => {
-    // Fetch initial data or update serviceApiData as needed
+
   }, []);
 
   if (!isAdmin) {
-    return null; // Или можно рендерить компонент с сообщением об отказе в доступе
+    return null;
   }
 
   return (

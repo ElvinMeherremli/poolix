@@ -1,0 +1,191 @@
+.Profile-section {
+  * {
+    font-family: inter;
+  }
+
+  .wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 180px;
+
+    .card {
+      padding: 30px;
+      border: 1px solid rgba(128, 128, 128, 0.41);
+      display: flex;
+      gap: 20px;
+
+      .image {
+        .circle {
+          height: 200px;
+          width: 200px;
+
+          img {
+            border-radius: 50%;
+            object-fit: cover;
+            height: 205px;
+            width: 205px;
+          }
+        }
+      }
+
+      .content {
+        .username {
+          font-size: 20px;
+          color: #024b72;
+          font-weight: 200;
+        }
+
+        .fullname {
+          font-size: 30px;
+          color: #000000;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+
+.modal-title {
+  * {
+    font-family: inter;
+  }
+}
+
+.space-x-2 {
+  button {
+    * {
+      font-family: inter;
+    }
+  }
+}
+
+.MuiInputBase-input {
+  outline: none !important;
+}
+
+#standard-basic {
+  outline: none !important;
+}
+
+label,
+.peer {
+  font-family: inter;
+}
+
+.inner-modal-btn {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  padding: 10px 20px 10px;
+  text-align: center;
+  z-index: 1;
+  color: #ffffff;
+  transition: .5s;
+  background-color: #ff5b0200;
+  font-family: 'inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  border: 1px solid #024B72;
+  color: #024B72;
+
+  &:hover {
+    color: #fff
+  }
+
+  span {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: #024B72;
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+  }
+
+  &:hover span {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+.decline-modal-btn {
+  position: relative;
+  display: inline-flex;
+  overflow: hidden;
+  padding: 10px 20px 10px;
+  text-align: center;
+  z-index: 1;
+  color: #ffffff;
+  transition: .5s;
+  background-color: #ff5b0200;
+  font-family: 'inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+  border: 1px solid #024B72;
+  color: #024B72;
+
+  &:hover {
+    color: #fff
+  }
+
+  span {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: #024B72;
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+  }
+
+  &:hover span {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+.update-modal-btn {
+  position: relative;
+  overflow: hidden;
+  padding: 11px 20px 11px;
+  text-align: center;
+  z-index: 1;
+  color: #ffffff;
+  transition: .5s;
+  background-color: #FF5C02;
+  font-family: 'inter';
+  font-style: normal;
+  font-weight: 600;
+  font-size: 13px;
+
+  span {
+    position: absolute;
+    display: block;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background-color: #024B72;
+    transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    top: 50%;
+    left: 50%;
+  }
+
+  &:hover span {
+    width: 400px;
+    height: 400px;
+  }
+}

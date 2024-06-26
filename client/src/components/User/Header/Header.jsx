@@ -32,7 +32,9 @@ function Header() {
 
   useEffect(() => {
     const updateUser = () => {
-      const user = JSON.parse(localStorage.getItem("user")) || JSON.parse(sessionStorage.getItem("user"));
+      const user =
+        JSON.parse(localStorage.getItem("user")) ||
+        JSON.parse(sessionStorage.getItem("user"));
       if (user) {
         setUsername(user.username);
       } else {
@@ -101,17 +103,26 @@ function Header() {
                 <BsCart2 />
               </div>
             </button>
-            <button className="phone">
+            <button onClick={() => {
+              navigate('/profile')
+            }} className="phone">
               <div className="circle">
                 <FaRegUser />
               </div>
             </button>
             {username ? (
-              <div className="username">
-                {username}
+              <div className="storage flex items-center gap-4">
+                <h2 className="username">{username}</h2>
+                <button onClick={() => {
+                  localStorage.removeItem('user')
+                  sessionStorage.removeItem('user')
+                }} className="log-out">Log Out <span></span></button>
               </div>
             ) : (
-              <div className="prof-btns" style={{ flexDirection: flexDirection }}>
+              <div
+                className="prof-btns"
+                style={{ flexDirection: flexDirection }}
+              >
                 <button
                   onClick={() => {
                     navigate("login");

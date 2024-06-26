@@ -58,6 +58,7 @@ const UsersSchema = new mongoose.Schema({
   password: String,
   img: String,
   email: String,
+  fullname: String,
   busket: []
 });
 
@@ -234,6 +235,7 @@ app.get("/api/users/:id", async (req, res) => {
     });
   }
 });
+
 
 app.post("/api/users", async (req, res) => {
   const User = new userModel(req.body);

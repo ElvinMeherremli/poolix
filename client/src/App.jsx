@@ -12,6 +12,7 @@ import {
   WorkerApi,
 } from "./context/ContextApi";
 import { BasketContextProvider } from "./context/BaksetContext";
+import { AppProvider } from "./context/AppContext";
 
 const router = createBrowserRouter(ROUTES);
 
@@ -45,25 +46,27 @@ function App() {
   return (
     <>
       <UserApi.Provider value={{ UserApiData, setUserApiData }}>
-        <CartApi.Provider value={{ CartApiData, setCartApiData }}>
-          <BasketContextProvider>
-            <WorkerApi.Provider value={{ WorkerApiData, setWorkerApiData }}>
-              <TestimonialApi.Provider
-                value={{ TestimonialApiData, setTestimonialApiData }}
-              >
-                <ServiceApi.Provider
-                  value={{ serviceApiData, setServiceApiData }}
+        <AppProvider>
+          <CartApi.Provider value={{ CartApiData, setCartApiData }}>
+            <BasketContextProvider>
+              <WorkerApi.Provider value={{ WorkerApiData, setWorkerApiData }}>
+                <TestimonialApi.Provider
+                  value={{ TestimonialApiData, setTestimonialApiData }}
                 >
-                  <PortfolioApi.Provider
-                    value={{ PortfolioApiData, setPortfolioApiData }}
+                  <ServiceApi.Provider
+                    value={{ serviceApiData, setServiceApiData }}
                   >
-                    <RouterProvider router={router} />
-                  </PortfolioApi.Provider>
-                </ServiceApi.Provider>
-              </TestimonialApi.Provider>
-            </WorkerApi.Provider>
-          </BasketContextProvider>
-        </CartApi.Provider>
+                    <PortfolioApi.Provider
+                      value={{ PortfolioApiData, setPortfolioApiData }}
+                    >
+                      <RouterProvider router={router} />
+                    </PortfolioApi.Provider>
+                  </ServiceApi.Provider>
+                </TestimonialApi.Provider>
+              </WorkerApi.Provider>
+            </BasketContextProvider>
+          </CartApi.Provider>
+        </AppProvider>
       </UserApi.Provider>
     </>
   );
