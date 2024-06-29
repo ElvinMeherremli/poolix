@@ -6,3 +6,15 @@
   list-style: none;
   font-family: "Oswald", sans-serif;
 }
+
+input {
+  border: none;
+  --tw-ring-color: #ffffff00;
+  outline: none;
+}
+
+
+
+[type='text']:focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{
+  --tw-ring-color: #ffffff00 !important;
+}

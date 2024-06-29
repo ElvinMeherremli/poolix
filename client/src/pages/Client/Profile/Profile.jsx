@@ -108,62 +108,62 @@ function Profile() {
                   </Modal.Header>
                   <form onSubmit={formik.handleSubmit}>
                     <Modal.Body>
-                      <div className="grid grid-flow-col justify-stretch space-x-4">
+                      <div className="flex flex-col space-x-4">
                         <FloatingLabel
                           variant="standard"
                           name="username"
-                          className="username-input"
+                          className="username-input  mt-2 px-2"
                           label="Username"
                           onChange={formik.handleChange}
                           value={formik.values.username}
                           onBlur={formik.handleBlur}
                         />
                         {formik.touched.username && formik.errors.username ? (
-                          <div className="error">{formik.errors.username}</div>
+                          <div style={{fontSize: 10, color: 'red', fontFamily: 'inter'}} className="error">{formik.errors.username}</div>
                         ) : null}
                       </div>
-                      <div className="grid grid-flow-col justify-stretch space-x-4 mt-2">
+                      <div className="flex flex-col space-x-4 mt-2">
                         <FloatingLabel
                           variant="standard"
                           name="fullname"
-                          className="fullname-input"
+                          className="fullname-input  mt-2 px-2"
                           label="Full Name"
                           onChange={formik.handleChange}
                           value={formik.values.fullname}
                           onBlur={formik.handleBlur}
                         />
                         {formik.touched.fullname && formik.errors.fullname ? (
-                          <div className="error">{formik.errors.fullname}</div>
+                          <div style={{fontSize: 10, color: 'red', fontFamily: 'inter'}} className="error">{formik.errors.fullname}</div>
                         ) : null}
                       </div>
-                      <div className="grid grid-flow-col justify-stretch space-x-4 mt-2">
+                      <div className="flex flex-col space-x-4 mt-2">
                         <FloatingLabel
                           variant="standard"
                           name="email"
                           type="email"
-                          className="email-input"
+                          className="email-input  mt-2 px-2"
                           label="Email"
                           onChange={formik.handleChange}
                           value={formik.values.email}
                           onBlur={formik.handleBlur}
                         />
                         {formik.touched.email && formik.errors.email ? (
-                          <div className="error">{formik.errors.email}</div>
+                          <div style={{fontSize: 10, color: 'red', fontFamily: 'inter'}} className="error">{formik.errors.email}</div>
                         ) : null}
                       </div>
-                      <div className="grid grid-flow-col justify-stretch space-x-4 mt-2">
+                      <div className="flex flex-col space-x-4 mt-2">
                         <FloatingLabel
                           variant="standard"
                           name="password"
                           type="password"
-                          className="password-input"
+                          className="password-input  mt-2 px-2"
                           label="Password"
                           onChange={formik.handleChange}
                           value={formik.values.password}
                           onBlur={formik.handleBlur}
                         />
                         {formik.touched.password && formik.errors.password ? (
-                          <div className="error">{formik.errors.password}</div>
+                          <div style={{fontSize: 10, color: 'red', fontFamily: 'inter'}} className="error">{formik.errors.password}</div>
                         ) : null}
                       </div>
                     </Modal.Body>

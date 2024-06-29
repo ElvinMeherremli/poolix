@@ -2,11 +2,13 @@ const express = require("express");
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
+const path = require('path');
 
 dotenv.config();
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
+app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -814,6 +816,51 @@ app.post("/api/send-email", (req, res) => {
     }
   });
 });
+
+
+require("./imageDetails");
+const Images = mongoose.model("ImageDetails");
+
+const multer  = require('multer')
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, '../client/src/images')
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now()
+    cb(null, uniqueSuffix + file.originalname)
+  }
+})
+
+const upload = multer({ storage: storage })
+
+app.post("/upload-image", upload.single("image"), async (req, res) => {
+  console.log(req.body);
+  const imageName = req.file.filename;
+
+  try {
+    await Images.create({ image: imageName });
+    res.json({ status: "ok" });
+  } catch (error) {
+    res.json({ status: error });
+  }
+});
+
+app.get("/get-image", async (req, res) => {
+  try {
+    Images.find({}).then((data) => {
+      res.send({ status: "ok", data: data });
+    });
+  } catch (error) {
+    res.json({ status: error });
+  }
+});
+
+app.use('/images', express.static(path.join(__dirname, '../client/src/images')));
+
+
+
 
 mongoose
   .connect(process.env.CONNECTION_STRING)

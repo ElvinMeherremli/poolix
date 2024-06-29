@@ -1,5 +1,47 @@
 .Users_admin-section {
+  font-family: inter !important;
+
   * {
-    font-family: inter;
+    font-family: inter !important;
+  }
+
+  .inner-btn {
+    position: relative;
+    display: inline-flex;
+    overflow: hidden;
+    padding: 17px 45px 16px;
+    text-align: center;
+    z-index: 1;
+    color: #003E3C;
+    transition: .5s;
+    border: 1px solid #003E3C;
+    background-color: #003E3C00;
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    &:hover {
+      color: white;
+      border: 1px solid #ffffff;
+    }
+
+    span {
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background-color: #003E3C;
+      transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      top: 50%;
+      left: 50%;
+    }
+
+    &:hover span {
+      width: 400px;
+      height: 400px;
+    }
   }
 }

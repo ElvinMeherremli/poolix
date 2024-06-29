@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 import { ServiceApi } from "../../../context/ContextApi";
 
+
 const validationSchema = Yup.object().shape({
   title: Yup.string().required("Title is required"),
   descr: Yup.string().required("Description is required"),
