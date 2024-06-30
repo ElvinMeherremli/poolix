@@ -1,15 +1,18 @@
 .Header-section {
   width: 100%;
   height: 120px;
-  position:fixed;
+  position: fixed;
   transition: .3s;
   z-index: 999;
   background-color: white;
   display: flex;
   align-items: center;
+
   &.scrolled {
-    height: 75px; /* Новая высота при прокрутке */
+    height: 75px;
+    /* Новая высота при прокрутке */
   }
+
   .wrapper {
     display: flex;
     justify-content: space-between;
@@ -41,6 +44,7 @@
       .cart {
         margin-right: 20px;
         width: 50px;
+
         .circle {
           position: relative;
 
@@ -62,13 +66,16 @@
           }
         }
       }
+
       .phone {
         width: 50px;
       }
+
       .prof-btns {
         display: flex;
         flex-direction: row;
         gap: 5px;
+
         .login-btn {
           position: relative;
           overflow: hidden;
@@ -82,7 +89,7 @@
           font-style: normal;
           font-weight: 600;
           font-size: 13px;
-  
+
           span {
             position: absolute;
             display: block;
@@ -96,12 +103,13 @@
             top: 50%;
             left: 50%;
           }
-  
+
           &:hover span {
             width: 400px;
             height: 400px;
           }
         }
+
         .register-btn {
           position: relative;
           display: inline-flex;
@@ -118,9 +126,11 @@
           font-size: 13px;
           border: 1px solid #024B72;
           color: #024B72;
+
           &:hover {
             color: #fff
           }
+
           span {
             position: absolute;
             display: block;
@@ -134,14 +144,14 @@
             top: 50%;
             left: 50%;
           }
-  
+
           &:hover span {
             width: 400px;
             height: 400px;
           }
         }
       }
-    
+
       .circle {
         width: 50px;
         height: 50px;
@@ -160,9 +170,11 @@
       }
     }
   }
+
   .username {
     font-family: inter;
   }
+
   .log-out {
     position: relative;
     display: inline-flex;
@@ -179,9 +191,11 @@
     font-size: 13px;
     border: 1px solid #024B72;
     color: #024B72;
+
     &:hover {
       color: #fff
     }
+
     span {
       position: absolute;
       display: block;
@@ -201,40 +215,142 @@
       height: 400px;
     }
   }
-}
 
-.cart-modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.75);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-}
+  // Стили для бургер-меню
+  .burger-menu {
+    display: none; // Скрыто на десктопе
+    cursor: pointer;
+    margin-right: 15px;
 
-.cart-modal {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  max-width: 500px;
-  width: 100%;
-  position: relative;
-}
+    .bar {
+      width: 25px;
+      height: 3px;
+      background-color: #333;
+      margin: 5px 0;
+      transition: 0.4s;
 
-.cart-modal h2 {
-  margin-top: 0;
-}
+      &.open {
+        transform: rotate(-45deg) translate(-5px, 5px);
+      }
+    }
+  }
 
-.cart-modal button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
+  // Отображение навигационного меню при открытом бургер-меню
+  nav.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 120px;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 10px 0;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 998;
+
+    a {
+      display: block;
+      padding: 10px 20px;
+      color: #2c2a49;
+      font-family: "Poppins", sans-serif;
+      font-size: 18px;
+      transition: 0.3s;
+
+      &:hover {
+        color: #ff5c00;
+      }
+    }
+  }
+
+  /* Header.scss */
+
+  .loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+
+  .loader {
+    animation: rotate 1s infinite;
+    height: 50px;
+    width: 50px;
+  }
+
+  .loader:before,
+  .loader:after {
+    border-radius: 50%;
+    content: "";
+    display: block;
+    height: 20px;
+    width: 20px;
+  }
+
+  .loader:before {
+    animation: ball1 1s infinite;
+    background-color: #fff;
+    box-shadow: 30px 0 0 #ff3d00;
+    margin-bottom: 10px;
+  }
+
+  .loader:after {
+    animation: ball2 1s infinite;
+    background-color: #ff3d00;
+    box-shadow: 30px 0 0 #fff;
+  }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg) scale(0.8)
+    }
+
+    50% {
+      transform: rotate(360deg) scale(1.2)
+    }
+
+    100% {
+      transform: rotate(720deg) scale(0.8)
+    }
+  }
+
+  @keyframes ball1 {
+    0% {
+      box-shadow: 30px 0 0 #ff3d00;
+    }
+
+    50% {
+      box-shadow: 0 0 0 #ff3d00;
+      margin-bottom: 0;
+      transform: translate(15px, 15px);
+    }
+
+    100% {
+      box-shadow: 30px 0 0 #ff3d00;
+      margin-bottom: 10px;
+    }
+  }
+
+  @keyframes ball2 {
+    0% {
+      box-shadow: 30px 0 0 #fff;
+    }
+
+    50% {
+      box-shadow: 0 0 0 #fff;
+      margin-top: -20px;
+      transform: translate(15px, 15px);
+    }
+
+    100% {
+      box-shadow: 30px 0 0 #fff;
+      margin-top: 0;
+    }
+  }
+
 }

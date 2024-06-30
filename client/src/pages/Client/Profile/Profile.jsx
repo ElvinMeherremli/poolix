@@ -6,14 +6,21 @@ import { Modal } from "flowbite-react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Pagination } from "swiper/modules";
+import { useDropzone } from "react-dropzone";
 import "./Profile.scss";
-import { AppContext } from '../../../context/AppContext'; // Import the AppContext
+import { AppContext } from "../../../context/AppContext";
+import { TextField } from "@mui/material";
 
 function Profile() {
   const { UserApiData } = useContext(UserApi);
-  const { triggerRerender } = useContext(AppContext); // Use the AppContext
+  const { triggerRerender } = useContext(AppContext);
   const [openModal1, setOpenModal1] = useState(false);
   const [UserData, setUserData] = useState(null);
+  const [draggedImage, setDraggedImage] = useState(null); // State to store dragged image URL
 
   useEffect(() => {
     const sessionUser = sessionStorage.getItem("user");
@@ -27,7 +34,9 @@ function Profile() {
   }, []);
 
   const validationSchema = Yup.object({
-    email: Yup.string().email("Invalid email address").required("Email is required"),
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
     password: Yup.string().min(6, "Password must be at least 6 characters"),
     username: Yup.string().required("Username is required"),
     fullname: Yup.string().required("Full Name is required"),
@@ -39,19 +48,23 @@ function Profile() {
       password: "",
       username: UserData?.username || "",
       fullname: UserData?.fullname || "",
+      img: "", // Initialize img field
     },
     enableReinitialize: true,
     validationSchema,
     onSubmit: async (values) => {
       try {
-        const updatedValues = {};
+        const updatedValues = { ...values }; // Clone values object
 
-        if (values.email) updatedValues.email = values.email;
-        if (values.password) updatedValues.password = values.password;
-        if (values.username) updatedValues.username = values.username;
-        if (values.fullname) updatedValues.fullname = values.fullname;
+        // If draggedImage has a value, update img field with base64 data
+        if (draggedImage) {
+          updatedValues.img = draggedImage;
+        }
 
-        const response = await axios.patch(`http://localhost:1212/api/users/${UserData?._id}`, updatedValues);
+        const response = await axios.patch(
+          `http://localhost:1212/api/users/${UserData?._id}`,
+          updatedValues
+        );
 
         const updatedUserData = response.data.data;
 
@@ -73,6 +86,22 @@ function Profile() {
     },
   });
 
+  // Setup the react-dropzone hook
+  const { getRootProps, getInputProps } = useDropzone({
+    accept: "image/jpeg, image/png, image/gif", // Accept only these image formats
+    onDrop: (acceptedFiles) => {
+      const file = acceptedFiles[0]; // Assuming only one file is dropped
+
+      // Use FileReader to read file as base64
+      const reader = new FileReader();
+      reader.onload = () => {
+        const base64Data = reader.result;
+        setDraggedImage(base64Data); // Set state with base64 data
+      };
+      reader.readAsDataURL(file);
+    },
+  });
+
   return (
     <div className="Profile-section">
       <div className="container">
@@ -80,10 +109,7 @@ function Profile() {
           <div className="card pt-[140px]">
             <div className="image">
               <div className="circle">
-                <img
-                  src={UserData?.img}
-                  alt=""
-                />
+                <img src={UserData?.img} alt="" />
               </div>
             </div>
             <div className="content">
@@ -98,7 +124,7 @@ function Profile() {
                   <span></span>
                 </button>
                 <Modal
-                  style={{ fontFamily: "inter" }}
+                  style={{ fontFamily: "inter", marginTop: 30}}
                   dismissible
                   show={openModal1}
                   onClose={() => setOpenModal1(false)}
@@ -109,8 +135,9 @@ function Profile() {
                   <form onSubmit={formik.handleSubmit}>
                     <Modal.Body>
                       <div className="flex flex-col space-x-4">
-                        <FloatingLabel
-                          variant="standard"
+                        <TextField
+                          id="outlined-basic"
+                          variant="outlined"
                           name="username"
                           className="username-input  mt-2 px-2"
                           label="Username"
@@ -119,12 +146,22 @@ function Profile() {
                           onBlur={formik.handleBlur}
                         />
                         {formik.touched.username && formik.errors.username ? (
-                          <div style={{fontSize: 10, color: 'red', fontFamily: 'inter'}} className="error">{formik.errors.username}</div>
+                          <div
+                            style={{
+                              fontSize: 10,
+                              color: "red",
+                              fontFamily: "inter",
+                            }}
+                            className="error"
+                          >
+                            {formik.errors.username}
+                          </div>
                         ) : null}
                       </div>
                       <div className="flex flex-col space-x-4 mt-2">
-                        <FloatingLabel
-                          variant="standard"
+                        <TextField
+                          id="outlined-basic"
+                          variant="outlined"
                           name="fullname"
                           className="fullname-input  mt-2 px-2"
                           label="Full Name"
@@ -133,12 +170,22 @@ function Profile() {
                           onBlur={formik.handleBlur}
                         />
                         {formik.touched.fullname && formik.errors.fullname ? (
-                          <div style={{fontSize: 10, color: 'red', fontFamily: 'inter'}} className="error">{formik.errors.fullname}</div>
+                          <div
+                            style={{
+                              fontSize: 10,
+                              color: "red",
+                              fontFamily: "inter",
+                            }}
+                            className="error"
+                          >
+                            {formik.errors.fullname}
+                          </div>
                         ) : null}
                       </div>
                       <div className="flex flex-col space-x-4 mt-2">
-                        <FloatingLabel
-                          variant="standard"
+                        <TextField
+                          id="outlined-basic"
+                          variant="outlined"
                           name="email"
                           type="email"
                           className="email-input  mt-2 px-2"
@@ -148,12 +195,22 @@ function Profile() {
                           onBlur={formik.handleBlur}
                         />
                         {formik.touched.email && formik.errors.email ? (
-                          <div style={{fontSize: 10, color: 'red', fontFamily: 'inter'}} className="error">{formik.errors.email}</div>
+                          <div
+                            style={{
+                              fontSize: 10,
+                              color: "red",
+                              fontFamily: "inter",
+                            }}
+                            className="error"
+                          >
+                            {formik.errors.email}
+                          </div>
                         ) : null}
                       </div>
                       <div className="flex flex-col space-x-4 mt-2">
-                        <FloatingLabel
-                          variant="standard"
+                        <TextField
+                          id="outlined-basic"
+                          variant="outlined"
                           name="password"
                           type="password"
                           className="password-input  mt-2 px-2"
@@ -163,15 +220,38 @@ function Profile() {
                           onBlur={formik.handleBlur}
                         />
                         {formik.touched.password && formik.errors.password ? (
-                          <div style={{fontSize: 10, color: 'red', fontFamily: 'inter'}} className="error">{formik.errors.password}</div>
+                          <div
+                            style={{
+                              fontSize: 10,
+                              color: "red",
+                              fontFamily: "inter",
+                            }}
+                            className="error"
+                          >
+                            {formik.errors.password}
+                          </div>
                         ) : null}
+                      </div>
+                      <div className="drag_zone flex gap-3">
+                        <div
+                          className="drag_drop_profile w-[100%]"
+                          {...getRootProps()}
+                        >
+                          <input {...getInputProps()} />
+                          <p>
+                            Drag 'n' drop some files here, or click to select
+                            files (Images only)
+                          </p>
+                        </div>
+                        <div className="drag_img w-[200px] mt-[20px]">
+                          {draggedImage && (
+                            <img src={draggedImage} alt="Dropped" />
+                          )}
+                        </div>
                       </div>
                     </Modal.Body>
                     <Modal.Footer>
-                      <button
-                        className="update-modal-btn"
-                        type="submit"
-                      >
+                      <button className="update-modal-btn" type="submit">
                         Update
                         <span></span>
                       </button>
@@ -194,7 +274,33 @@ function Profile() {
       </div>
       <div className="container">
         <div className="cart mb-[-100px] text-center">
-          <h1>cart section</h1>
+          <h1>Cart Section</h1>
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={30}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination]}
+            className="mySwiper"
+          >
+            {UserApiData &&
+            UserApiData.busket &&
+            UserApiData.busket.length > 0 ? (
+              UserApiData.busket.map((elem) => (
+                <SwiperSlide key={elem._id}>
+                  <div className="basket-item">
+                    <img src={elem.img} alt={elem.productName} />
+                    <h3>{elem.productName}</h3>
+                    <p>Price: ${elem.price}</p>
+                    <p>Count: {elem.count}</p>
+                  </div>
+                </SwiperSlide>
+              ))
+            ) : (
+              <p>No items in the cart</p>
+            )}
+          </Swiper>
         </div>
       </div>
     </div>

@@ -144,6 +144,7 @@
       flex-direction: column;
       gap: 20px;
       form {
+        position: relative;
         margin-top: 20px;
         input {
           border-color: #F7F7F5;
@@ -153,7 +154,7 @@
           }
           resize: none;
           height: 50px;
-          margin-bottom: 20px;
+          margin-bottom: 30px;
           width: 100%;
           padding: 10px 15px;
           font-family: inter;
@@ -162,6 +163,19 @@
           &:focus {
             border: 1px solid #ff5c00; 
           }
+        }
+        .error {
+          color: rgb(195, 0, 0);
+          font-size: 13px;
+          font-family: inter;
+          margin-top: -30px;
+          position: absolute;
+        }
+        select {
+          border-color: #F7F7F5;
+          background-color: #F7F7F5;
+          font-family: inter;
+          height: 50px;
         }
         textarea {
           border-color: #F7F7F5;

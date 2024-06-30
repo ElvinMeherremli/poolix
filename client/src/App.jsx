@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import {
   CartApi,
+  MessageApi,
   PortfolioApi,
   ServiceApi,
   TestimonialApi,
@@ -23,6 +24,7 @@ function App() {
   const [PortfolioApiData, setPortfolioApiData] = useState();
   const [UserApiData, setUserApiData] = useState();
   const [CartApiData, setCartApiData] = useState();
+  const [MessagesApiData, setMessagesApiData] = useState();
   useEffect(() => {
     axios.get("http://localhost:1212/api/services").then((res) => {
       setServiceApiData(res.data.data);
@@ -42,6 +44,9 @@ function App() {
     axios.get("http://localhost:1212/api/cart").then((res) => {
       setCartApiData(res.data.data);
     });
+    axios.get("http://localhost:1212/api/feedback").then((res) => {
+      setMessagesApiData(res.data.data);
+    });
   }, []);
   return (
     <>
@@ -59,7 +64,11 @@ function App() {
                     <PortfolioApi.Provider
                       value={{ PortfolioApiData, setPortfolioApiData }}
                     >
-                      <RouterProvider router={router} />
+                      <MessageApi.Provider
+                        value={{ MessagesApiData, setMessagesApiData }}
+                      >
+                        <RouterProvider router={router} />
+                      </MessageApi.Provider>
                     </PortfolioApi.Provider>
                   </ServiceApi.Provider>
                 </TestimonialApi.Provider>

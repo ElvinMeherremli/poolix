@@ -41,6 +41,7 @@
       padding: 70px;
       margin-top: 50px;
       form {
+        position: relative;
         input {
           background: #ffffff;
           width: 100%;
@@ -66,6 +67,18 @@
           font-size: 16px;
           color: #6E6E6E;
           outline: none;
+        }
+        .error {
+          color: rgb(195, 0, 0);
+          font-size: 13px;
+          font-family: inter;
+          position: absolute;
+          margin-top: 2px;
+        }
+        select {
+          font-family: inter;
+          color: #6E6E6E;
+          border: 1px solid #E5E5E5 !important;
         }
         .inner-btn {
           margin: 0 auto;

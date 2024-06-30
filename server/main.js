@@ -12,10 +12,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.json({ limit: '100mb' }));
-app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(bodyParser.json({ limit: '10mb' }));
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ limit: '10mb', extended: true }));
 
 // Schemas and Models
 const ImageSchema = new mongoose.Schema({
@@ -41,6 +41,9 @@ const workerSchema = new mongoose.Schema({
   name: String,
   position: String,
   descr: String,
+  instagram: String,
+  twitter: String,
+  facebook: String,
 }, { timestamps: true });
 
 const testimonialSchema = new mongoose.Schema({
@@ -70,14 +73,138 @@ const CartSchema = new mongoose.Schema({
   price: Number
 });
 
+const FeedbackSchema = new mongoose.Schema({
+  name: String,
+  email: String,
+  phone: Number,
+  message: String
+});
+
 const serviceModel = mongoose.model("Service", serviceSchema);
 const workerModel = mongoose.model("Worker", workerSchema);
 const testimonialModel = mongoose.model("Testimonial", testimonialSchema);
 const portfolioModel = mongoose.model("Portfolio", portfolioSchema);
 const userModel = mongoose.model("User", UsersSchema);
 const cartModel = mongoose.model("Cart", CartSchema);
+const feedbackModel = mongoose.model("Feedback", FeedbackSchema);
 
 // Routes
+// Feedback
+app.get("/api/feedback", async (req, res) => {
+  const { title } = req.query;
+  let feed;
+  if (title) feed = await feedbackModel.find({ title: title });
+  else feed = await feedbackModel.find();
+
+  if (feed.length > 0) {
+    res.status(200).send({
+      message: "success",
+      data: feed,
+    });
+  } else {
+    res.status(204).send({
+      message: "not found",
+      data: null,
+    });
+  }
+});
+
+app.get("/api/feedback/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const feed = await feedbackModel.findById(id);
+    if (feed) {
+      res.status(200).send({
+        message: "success",
+        data: feed,
+      });
+    } else {
+      res.status(404).send({
+        message: "not found",
+        data: null,
+      });
+    }
+  } catch (error) {
+    res.status(500).send({
+      message: "error",
+      error: error.message,
+    });
+  }
+});
+
+app.post("/api/feedback", async (req, res) => {
+  const Feed = new feedbackModel(req.body);
+  await Feed.save();
+  res.send(Feed);
+});
+
+app.patch("/api/feedback/:id", async (req, res) => {
+  const { id } = req.params;
+  let response;
+  try {
+    response = await feedbackModel.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+  } catch (error) {
+    res.send({ error: error });
+  }
+  if (response) {
+    res.send({
+      message: "updated",
+      data: response,
+    });
+  } else {
+    res.send({
+      message: "not found",
+      data: null,
+    });
+  }
+});
+
+app.delete("/api/feedback/:id", async (req, res) => {
+  const { id } = req.params;
+  let response;
+  try {
+    response = await feedbackModel.findByIdAndDelete(id);
+  } catch (error) {
+    res.send({
+      message: "not found",
+    });
+  }
+  if (response) {
+    res.send({
+      message: "deleted",
+      response: response,
+    });
+  } else {
+    res.send({
+      message: "fatal error (doesn't delete...)",
+    });
+  }
+});
+
+app.delete("/api/feedback", async (req, res) => {
+  let response;
+  try {
+    response = await feedbackModel.deleteMany({});
+  } catch (error) {
+    res.send({
+      message: "error",
+      error: error,
+    });
+  }
+
+  if (response.deletedCount > 0) {
+    res.send({
+      message: "success",
+      deletedCount: response.deletedCount,
+    });
+  } else {
+    res.send({
+      message: "no documents to delete",
+    });
+  }
+});
 // Cart routes
 app.get("/api/cart", async (req, res) => {
   const { title } = req.query;
@@ -872,11 +999,12 @@ app.listen(process.env.PORT, function (err) {
   console.log(
     "Server listening on Port",
     process.env.PORT,
-    "\n\nhttp://localhost:1212/api/services",
-    "\nhttp://localhost:1212/api/workers",
-    "\nhttp://localhost:1212/api/testimonials",
-    "\nhttp://localhost:1212/api/portfolio",
-    "\nhttp://localhost:1212/api/users",
-    "\nhttp://localhost:1212/api/cart",
+    "\n\n http://localhost:1212/api/services",
+    "\n http://localhost:1212/api/workers",
+    "\n http://localhost:1212/api/testimonials",
+    "\n http://localhost:1212/api/portfolio",
+    "\n http://localhost:1212/api/users",
+    "\n http://localhost:1212/api/cart",
+    "\n http://localhost:1212/api/feedback",
   );
 });

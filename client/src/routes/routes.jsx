@@ -5,7 +5,6 @@ import LayoutPageClient from "../pages/Client/LayoutPageClient";
 import Pricing from "../pages/Client/Pricing/Pricing";
 import Shop from "../pages/Client/Shop/Shop";
 import Services from "../pages/Client/Services/Services";
-import Blog from "../pages/Client/Blog/Blog";
 import AddServices from "../pages/Admin/AddServices/AddServices";
 import LoginAdmin from "../pages/Admin/LoginAdmin/LoginAdmin";
 
@@ -16,6 +15,8 @@ import Users from "../pages/Admin/Users/Users";
 import Login from "../pages/Client/Login/Login";
 import Register from "../pages/Client/Register/Register";
 import Profile from "../pages/Client/Profile/Profile";
+import Workers from "../pages/Admin/Workers/Workers";
+import Messages from "../pages/Admin/Messages/Messages";
 
 export const ROUTES = [
   {
@@ -59,10 +60,6 @@ export const ROUTES = [
         element: <Shop />,
       },
       {
-        path: "/blog",
-        element: <Blog />,
-      },
-      {
         path: 'login',
         element: <Login/>
       },
@@ -91,6 +88,14 @@ export const ROUTES = [
       {
         path: 'users',
         element: <Users/>
+      },
+      {
+        path: 'workers',
+        element: <Workers/>
+      },
+      {
+        path: 'messages',
+        element: <Messages/>
       },
     ],
   },

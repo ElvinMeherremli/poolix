@@ -11,6 +11,8 @@ function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [flexDirection, setFlexDirection] = useState("column");
   const [username, setUsername] = useState(null);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for opening/closing the mobile menu
+  const [isLoading, setIsLoading] = useState(false); // State for loading screen
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,16 +44,14 @@ function Header() {
       }
     };
 
-    updateUser(); // вызываем updateUser сразу для инициализации
+    updateUser();
 
     const handleStorageChange = (event) => {
-      // Проверяем, что изменилось именно хранилище пользователя
       if (event.key === "user") {
         updateUser();
       }
     };
 
-    // Слушаем событие storage
     window.addEventListener("storage", handleStorageChange);
 
     return () => {
@@ -59,91 +59,126 @@ function Header() {
     };
   }, []);
 
+  // Function to toggle mobile menu
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if (user && user.role === "client") {
+      setIsAdmin(true);
+    }
+  }, []);
+
+  // Function to handle logout
+  const handleLogout = () => {
+    setIsLoading(true); // Show loading screen
+
+    localStorage.removeItem('user');
+    sessionStorage.removeItem('user');
+
+    setTimeout(() => {
+      window.location.reload(); // Reload the page after a short delay
+    }, 1000); // Adjust the delay as needed
+  };
+
   return (
     <div className={`Header-section ${scrolled ? "scrolled" : ""}`}>
-      <div className="container max-w-[1380px]">
-        <div className="wrapper">
-          <div className="left-column">
-            <div className="logo" style={{ width: 186 }}>
-              <Link to={"/"}>
+      {isLoading ? (
+        <div className="loading-screen">
+        <span className="loader"></span>
+        </div>
+      ) : (
+        <div className="container max-w-[1380px]">
+          <div className="wrapper">
+            <div className="left-column">
+              <div className="logo" style={{ width: 186 }}>
+                <Link to={"/"}>
+                  <img
+                    style={{ width: 186, height: 60 }}
+                    src="https://html.tonatheme.com/2023/poolix/assets/images/logo.png"
+                    alt=""
+                  />
+                </Link>
+              </div>
+              <div className="conv" style={{ height: 53 }}>
                 <img
-                  style={{ width: 186, height: 60 }}
-                  src="https://html.tonatheme.com/2023/poolix/assets/images/logo.png"
+                  style={{ width: 5, height: 53 }}
+                  className="mx-[60px]"
+                  src="https://html.tonatheme.com/2023/poolix/assets/images/shape/shape-1.png"
                   alt=""
                 />
-              </Link>
+              </div>
+              {/* Burger menu for mobile screens */}
+              <div className="burger-menu" onClick={toggleMobileMenu}>
+                <div className={`bar ${isMobileMenuOpen ? "open" : ""}`}></div>
+                <div className={`bar ${isMobileMenuOpen ? "open" : ""}`}></div>
+                <div className={`bar ${isMobileMenuOpen ? "open" : ""}`}></div>
+              </div>
+              {/* Navigation menu */}
+              <nav className={`flex gap-5 ${isMobileMenuOpen ? "open" : ""}`}>
+                <Link to={"/"}>Home</Link>
+                <Link to={"/about"}>About Us</Link>
+                <Link to={"/services"}>Services</Link>
+                <Link to={"/shop"}>Shop</Link>
+                <Link to={"/pricing"}>Pricing</Link>
+                <Link to={"/contact"}>Contact</Link>
+              </nav>
             </div>
-            <div className="conv" style={{ height: 53 }}>
-              <img
-                style={{ width: 5, height: 53 }}
-                className="mx-[60px]"
-                src="https://html.tonatheme.com/2023/poolix/assets/images/shape/shape-1.png"
-                alt=""
-              />
-            </div>
-            <nav className="flex gap-5">
-              <Link to={"/"}>Home</Link>
-              <Link to={"/about"}>About Us</Link>
-              <Link to={"/services"}>Services</Link>
-              <Link to={"/shop"}>Shop</Link>
-              <Link to={"/pricing"}>Pricing</Link>
-              <Link to={"/blog"}>Blog</Link>
-              <Link to={"/contact"}>Contact</Link>
-            </nav>
-          </div>
-          <div className="right-column">
-            <button
-              onClick={() => {
-                navigate("/cart");
-              }}
-              className="cart"
-            >
-              <div className="circle">
-                <span className="count">{basket.length}</span>
-                <BsCart2 />
-              </div>
-            </button>
-            <button onClick={() => {
-              navigate('/profile')
-            }} className="phone">
-              <div className="circle">
-                <FaRegUser />
-              </div>
-            </button>
-            {username ? (
-              <div className="storage flex items-center gap-4">
-                <h2 className="username">{username}</h2>
-                <button onClick={() => {
-                  localStorage.removeItem('user')
-                  sessionStorage.removeItem('user')
-                }} className="log-out">Log Out <span></span></button>
-              </div>
-            ) : (
-              <div
-                className="prof-btns"
-                style={{ flexDirection: flexDirection }}
+            <div className="right-column">
+              <button
+                onClick={() => {
+                  navigate("/cart");
+                }}
+                className="cart"
               >
-                <button
-                  onClick={() => {
-                    navigate("login");
-                  }}
-                  className="login-btn"
+                <div className="circle">
+                  <span className="count">{isAdmin ? basket.length : 0}</span>
+                  <BsCart2 />
+                </div>
+              </button>
+              <button onClick={() => {
+                navigate('/profile')
+              }} className="phone">
+                <div className="circle">
+                  <FaRegUser />
+                </div>
+              </button>
+              {username ? (
+                <div className="storage flex items-center gap-4">
+                  <h2 className="username">{username}</h2>
+                  <button onClick={handleLogout} className="log-out">Log Out <span></span></button>
+                </div>
+              ) : (
+                <div
+                  className="prof-btns"
+                  style={{ flexDirection: flexDirection }}
                 >
-                  Log In <span></span>
-                </button>
-                <button
-                  onClick={() => {
-                    navigate("register");
-                  }}
-                  className="register-btn"
-                >
-                  Register <span></span>
-                </button>
-              </div>
-            )}
+                  <button
+                    onClick={() => {
+                      navigate("login");
+                    }}
+                    className="login-btn"
+                  >
+                    Log In <span></span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      navigate("register");
+                    }}
+                    className="register-btn"
+                  >
+                    Register <span></span>
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

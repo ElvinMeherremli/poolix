@@ -1,0 +1,22 @@
+.Messages_admin-section {
+  * {
+    font-family: inter;
+  }
+  .success-svg {
+    color: #003e3c !important;
+    transition: .3s;
+  }
+  .del-svg {
+    color: #9A1C1C !important;
+    transition: .3s;
+  }
+  button{
+    &:hover svg{
+      color: #fff !important;
+    }
+  }
+  .bg-salad {
+    background-color: greenyellow; /* замените на нужный вам цвет */
+  }
+  
+}
