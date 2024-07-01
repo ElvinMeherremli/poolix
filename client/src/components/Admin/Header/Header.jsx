@@ -42,6 +42,9 @@ function Header() {
           <Button color="inherit">
             <Link to={"messages"}>Messages</Link>
           </Button>
+          <Button color="inherit">
+            <Link to={"basket"}>Basket</Link>
+          </Button>
           <Button
             onClick={() => {
               sessionStorage.removeItem("user");

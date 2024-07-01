@@ -1,0 +1,90 @@
+.Basket_admin-section {
+  font-family: inter;
+
+  * {
+    font-family: inter;
+  }
+
+
+  .error-message {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 0.25em;
+  }
+
+  .form-field {
+    margin-bottom: 1em;
+  }
+
+  .inner-btn {
+    position: relative;
+    display: block;
+    margin: 0 auto;
+    overflow: hidden;
+    padding: 13px 40px 13px;
+    text-align: center;
+    z-index: 1;
+    color: #003E3C;
+    transition: .5s;
+    border: 1px solid #003E3C;
+    background-color: #003E3C00;
+    font-family: 'Oswald';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+
+    &:hover {
+      color: white;
+      border: 1px solid #ffffff;
+    }
+
+    span {
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background-color: #003E3C;
+      transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      top: 50%;
+      left: 50%;
+    }
+
+    &:hover span {
+      width: 400px;
+      height: 400px;
+    }
+  }
+
+  /* Basket.scss */
+
+  .drag_drop {
+    border: 2px dashed #ccc;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    margin-bottom: 1em;
+    transition: border-color 0.3s ease-in-out, background-color 0.3s ease-in-out;
+  }
+
+  .drag_drop.dragging {
+    border-color: #4caf50;
+    background-color: #e8f5e9;
+  }
+
+  .drag_drop p {
+    margin: 0;
+  }
+
+  .error-message {
+    color: red;
+    font-size: 0.875em;
+    margin-top: 0.25em;
+  }
+
+  .form-field {
+    margin-bottom: 1em;
+  }
+}

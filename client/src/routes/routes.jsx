@@ -17,6 +17,7 @@ import Register from "../pages/Client/Register/Register";
 import Profile from "../pages/Client/Profile/Profile";
 import Workers from "../pages/Admin/Workers/Workers";
 import Messages from "../pages/Admin/Messages/Messages";
+import Basket from "../pages/Admin/Basket/Basket";
 
 export const ROUTES = [
   {
@@ -96,6 +97,10 @@ export const ROUTES = [
       {
         path: 'messages',
         element: <Messages/>
+      },
+      {
+        path: 'basket',
+        element: <Basket/>
       },
     ],
   },
