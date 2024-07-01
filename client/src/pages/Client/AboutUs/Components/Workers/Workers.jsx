@@ -19,33 +19,40 @@ function Workers() {
                   <div className="col-lg-3 col-md-6">
                     <div className="card">
                       <div className="image">
-                        <img
-                          src={elem.img}
-                          alt=""
-                        />
+                        <img src={elem.img} alt="" />
                         <div className="share-icon">
                           <IoShareSocialSharp />
                         </div>
                         <div className="icon-area">
                           <ul>
-                            <li className="instagram-ico social-icon">
-                              <FaInstagram />
-                            </li>
-                            <li className="twitter-ico social-icon">
-                              <FaTwitter />
-                            </li>
-                            <li className="facebook-ico social-icon">
-                              <FaFacebookF />
-                            </li>
+                            <a
+                              href={`https://www.instagram.com/${elem.instagram}`}
+                            >
+                              <li className="instagram-ico social-icon">
+                                <FaInstagram />
+                              </li>
+                            </a>
+                            <a href={`https://x.com/${elem.twitter}`}>
+                              <li className="twitter-ico social-icon">
+                                <FaTwitter />
+                              </li>
+                            </a>
+                            <a
+                              href={`https://www.facebook.com/${elem.facebook}`}
+                            >
+                              <li className="facebook-ico social-icon">
+                                <FaFacebookF />
+                              </li>
+                            </a>
                           </ul>
                         </div>
                       </div>
                       <div className="content">
                         <h3 className="content-title">{elem.name}</h3>
-                        <p className="content-worker-position">{elem.position}</p>
-                        <p className="content-descr">
-                          {elem.descr}
+                        <p className="content-worker-position">
+                          {elem.position}
                         </p>
+                        <p className="content-descr">{elem.descr}</p>
                       </div>
                     </div>
                   </div>

@@ -49,10 +49,6 @@ export const ROUTES = [
         element: <Services />,
       },
       {
-        path: "/services",
-        element: <Services />,
-      },
-      {
         path: "/service-detail/:id",
         element: <ServiceDetail />,
       },

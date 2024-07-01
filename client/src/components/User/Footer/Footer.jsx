@@ -2,6 +2,7 @@ import { FaFacebookF } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
 import { FaLinkedinIn } from "react-icons/fa";
 import "./Footer.scss";
+import { Link } from "react-router-dom";
 function Footer() {
   return (
     <div className="Footer-section">
@@ -62,19 +63,19 @@ function Footer() {
                 <h3 className="title">Links</h3>
                 <ul className="links">
                   <li>
-                    <a href="#">About Us</a>
+                    <Link to={'/about'}>About Us</Link>
                   </li>
                   <li>
-                    <a href="#">Services</a>
+                    <Link to={'/services'}>Services</Link>
                   </li>
                   <li>
-                    <a href="#">Case</a>
+                    <Link to={'/contact'}>Contact</Link>
                   </li>
                   <li>
-                    <a href="#">Pool Repair</a>
+                    <Link to={'/shop'}>Shop</Link>
                   </li>
                   <li>
-                    <a href="#">Contact us</a>
+                    <Link to={'pricing'}>Pricing</Link>
                   </li>
                 </ul>
               </div>
