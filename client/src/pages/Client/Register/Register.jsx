@@ -1,21 +1,22 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.scss";
 import { useFormik } from "formik";
-import * as Yup from "yup"; // Import Yup for validation
+import * as Yup from "yup";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Helmet } from "react-helmet";
 
 function Register() {
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false); // Add loading state
+  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
       role: "client",
       username: "",
       password: "",
-      confirmPassword: "", // Keep this in initialValues for validation purposes only
+      confirmPassword: "",
       img: "",
       email: "",
     },
@@ -35,7 +36,7 @@ function Register() {
         .required("Email is required"),
     }),
     onSubmit: (values) => {
-      setLoading(true); // Set loading state to true
+      setLoading(true);
       const { confirmPassword, ...data } = values;
       axios
         .post("http://localhost:1212/api/users", data)
@@ -44,7 +45,10 @@ function Register() {
             title: "Registration successful",
             icon: "success",
           });
-          navigate("/login"); // Navigate to the login page after successful registration
+          setTimeout(() => {
+            window.location.reload(); // Reload the page after a short delay
+          }, 1000); // Adjust the delay as needed
+          navigate("/login");
         })
         .catch((error) => {
           Swal.fire({
@@ -54,13 +58,18 @@ function Register() {
           });
         })
         .finally(() => {
-          setLoading(false); // Set loading state to false
+          setLoading(false);
         });
     },
   });
 
   return (
     <div className="Register-section">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Register</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       {loading ? (
         <div className="loading-screen">
           <span className="loader"></span>

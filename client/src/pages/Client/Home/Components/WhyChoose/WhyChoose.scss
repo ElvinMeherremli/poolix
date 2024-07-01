@@ -127,10 +127,12 @@
       margin-top: 10px;
     }
   }
+
   .swiper-button-prev {
     &::after {
       display: none;
     }
+
     width: 40px;
     height: 40px;
     transform: rotate(-45deg);
@@ -138,10 +140,12 @@
     border-top: 1px white solid;
     margin-left: 5px;
   }
+
   .swiper-button-next {
     &::after {
       display: none;
     }
+
     transform: rotate(135deg);
     margin-left: 0;
     border-left: 1px white solid;
@@ -149,5 +153,21 @@
     width: 40px;
     height: 40px;
     margin-right: 5px;
+  }
+
+  @media screen and (max-width: 1420px) {
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+
+      .unit {
+        padding-bottom: 30px;
+        .image {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
+        }
+      }
+    }
   }
 }

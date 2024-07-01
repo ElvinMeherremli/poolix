@@ -1,5 +1,7 @@
+import { IoClose } from "react-icons/io5";
+import { AiOutlineMenuUnfold } from "react-icons/ai";
 import { FaRegUser } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { BsCart2 } from "react-icons/bs";
 import "./Header.scss";
 import { useContext, useEffect, useState } from "react";
@@ -8,6 +10,7 @@ import { BasketContext } from "../../../context/BaksetContext";
 function Header() {
   const { basket } = useContext(BasketContext);
   const navigate = useNavigate();
+  const location = useLocation(); // Importing useLocation to listen to route changes
   const [scrolled, setScrolled] = useState(false);
   const [flexDirection, setFlexDirection] = useState("column");
   const [username, setUsername] = useState(null);
@@ -77,19 +80,24 @@ function Header() {
   const handleLogout = () => {
     setIsLoading(true); // Show loading screen
 
-    localStorage.removeItem('user');
-    sessionStorage.removeItem('user');
+    localStorage.removeItem("user");
+    sessionStorage.removeItem("user");
 
     setTimeout(() => {
       window.location.reload(); // Reload the page after a short delay
     }, 1000); // Adjust the delay as needed
   };
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location]);
+
   return (
-    <div className={`Header-section ${scrolled ? "scrolled" : ""}`}>
+    <header className={`Header-section ${scrolled ? "scrolled" : ""}`}>
       {isLoading ? (
         <div className="loading-screen">
-        <span className="loader"></span>
+          <span className="loader"></span>
         </div>
       ) : (
         <div className="container max-w-[1380px]">
@@ -113,19 +121,21 @@ function Header() {
                 />
               </div>
               {/* Burger menu for mobile screens */}
-              <div className="burger-menu" onClick={toggleMobileMenu}>
-                <div className={`bar ${isMobileMenuOpen ? "open" : ""}`}></div>
-                <div className={`bar ${isMobileMenuOpen ? "open" : ""}`}></div>
-                <div className={`bar ${isMobileMenuOpen ? "open" : ""}`}></div>
-              </div>
+              <button className="nav-btn" onClick={toggleMobileMenu}>
+                {isMobileMenuOpen ? (
+                  <IoClose style={{ fontSize: 30 }} />
+                ) : (
+                  <AiOutlineMenuUnfold style={{ fontSize: 30 }} />
+                )}
+              </button>
               {/* Navigation menu */}
-              <nav className={`flex gap-5 ${isMobileMenuOpen ? "open" : ""}`}>
-                <Link to={"/"}>Home</Link>
-                <Link to={"/about"}>About Us</Link>
-                <Link to={"/services"}>Services</Link>
-                <Link to={"/shop"}>Shop</Link>
-                <Link to={"/pricing"}>Pricing</Link>
-                <Link to={"/contact"}>Contact</Link>
+              <nav className={`nav-menu ${isMobileMenuOpen ? "open" : ""}`}>
+                <Link to={"/"} onClick={toggleMobileMenu}>Home</Link>
+                <Link to={"/about"} onClick={toggleMobileMenu}>About Us</Link>
+                <Link to={"/services"} onClick={toggleMobileMenu}>Services</Link>
+                <Link to={"/shop"} onClick={toggleMobileMenu}>Shop</Link>
+                <Link to={"/pricing"} onClick={toggleMobileMenu}>Pricing</Link>
+                <Link to={"/contact"} onClick={toggleMobileMenu}>Contact</Link>
               </nav>
             </div>
             <div className="right-column">
@@ -140,9 +150,12 @@ function Header() {
                   <BsCart2 />
                 </div>
               </button>
-              <button onClick={() => {
-                navigate('/profile')
-              }} className="phone">
+              <button
+                onClick={() => {
+                  navigate("/profile");
+                }}
+                className="phone"
+              >
                 <div className="circle">
                   <FaRegUser />
                 </div>
@@ -150,7 +163,9 @@ function Header() {
               {username ? (
                 <div className="storage flex items-center gap-4">
                   <h2 className="username">{username}</h2>
-                  <button onClick={handleLogout} className="log-out">Log Out <span></span></button>
+                  <button onClick={handleLogout} className="log-out">
+                    Log Out <span></span>
+                  </button>
                 </div>
               ) : (
                 <div
@@ -179,7 +194,7 @@ function Header() {
           </div>
         </div>
       )}
-    </div>
+    </header>
   );
 }
 

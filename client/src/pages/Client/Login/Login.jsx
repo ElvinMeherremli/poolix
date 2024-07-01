@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { UserApi } from "../../../context/ContextApi";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 function Login() {
   const { UserApiData } = useContext(UserApi);
@@ -52,6 +53,11 @@ function Login() {
 
   return (
     <div className="Login-section">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Login</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       {isLoading ? (
         <div className="loading-screen">
           <span className="loader"></span>

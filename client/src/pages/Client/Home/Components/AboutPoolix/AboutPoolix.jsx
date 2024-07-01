@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import { FaCheck } from "react-icons/fa6";
 
 import "./AboutPoolix.scss";
+import { useNavigate } from "react-router-dom";
 
 function AboutPoolix() {
+  const navigate = useNavigate()
   useEffect(() => {
     const handleScroll = () => {
       const shape1 = document.querySelector(".shape-1");
@@ -64,7 +66,9 @@ function AboutPoolix() {
                   Lorem ipsum dolor sit amet coset etur adipicing elit Macenas
                   semper magna eu dolor nibh consequat semper dictum
                 </p>
-                <button className="inner-btn">
+                <button onClick={() => {
+                  navigate('/about')
+                }} className="inner-btn">
                   DISCOVER MORE
                   <span></span>
                 </button>

@@ -33,7 +33,7 @@ function WhyChoose() {
               <div className="row">
                 <div className="col-md-6">
                   <div className="card">
-                    <img src={QualityServices} alt="" />
+                    <img src={QualityServices} className="mx-auto" alt="" />
                     <div className="card-content">
                       <h3 className="card-content-title">Quality Services</h3>
                       <p className="card-descr">

@@ -1,5 +1,3 @@
-import { FloatingLabel } from "flowbite-react";
-import * as React from "react";
 import { useContext, useState, useEffect } from "react";
 import { UserApi } from "../../../context/ContextApi";
 import { Modal } from "flowbite-react";
@@ -14,6 +12,8 @@ import { useDropzone } from "react-dropzone";
 import "./Profile.scss";
 import { AppContext } from "../../../context/AppContext";
 import { TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { Helmet } from "react-helmet";
 
 function Profile() {
   const { UserApiData } = useContext(UserApi);
@@ -21,6 +21,7 @@ function Profile() {
   const [openModal1, setOpenModal1] = useState(false);
   const [UserData, setUserData] = useState(null);
   const [draggedImage, setDraggedImage] = useState(null); // State to store dragged image URL
+  const navigate = useNavigate(); // Initialize useNavigate
 
   useEffect(() => {
     const sessionUser = sessionStorage.getItem("user");
@@ -30,8 +31,11 @@ function Profile() {
       setUserData(JSON.parse(sessionUser));
     } else if (localUser) {
       setUserData(JSON.parse(localUser));
+    } else {
+      // Redirect to login if user data is not found
+      navigate("/login");
     }
-  }, []);
+  }, [navigate]);
 
   const validationSchema = Yup.object({
     email: Yup.string()
@@ -45,7 +49,7 @@ function Profile() {
   const formik = useFormik({
     initialValues: {
       email: UserData?.email || "",
-      password: "",
+      password: UserData?.password || "",
       username: UserData?.username || "",
       fullname: UserData?.fullname || "",
       img: "", // Initialize img field
@@ -104,6 +108,11 @@ function Profile() {
 
   return (
     <div className="Profile-section">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Profile</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <div className="container">
         <div className="wrapper">
           <div className="card pt-[140px]">
@@ -124,7 +133,7 @@ function Profile() {
                   <span></span>
                 </button>
                 <Modal
-                  style={{ fontFamily: "inter", marginTop: 30}}
+                  style={{ fontFamily: "inter", marginTop: 30 }}
                   dismissible
                   show={openModal1}
                   onClose={() => setOpenModal1(false)}
@@ -272,7 +281,7 @@ function Profile() {
           </div>
         </div>
       </div>
-      <div className="container">
+      {/* <div className="container">
         <div className="cart mb-[-100px] text-center">
           <h1>Cart Section</h1>
           <Swiper
@@ -302,7 +311,7 @@ function Profile() {
             )}
           </Swiper>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

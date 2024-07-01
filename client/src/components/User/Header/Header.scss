@@ -2,7 +2,7 @@
   width: 100%;
   height: 120px;
   position: fixed;
-  transition: .3s;
+  transition: 0.3s;
   z-index: 999;
   background-color: white;
   display: flex;
@@ -10,7 +10,50 @@
 
   &.scrolled {
     height: 75px;
-    /* Новая высота при прокрутке */
+  }
+
+  .log-out {
+    background-color: transparent;
+    border: 1px solid #024b72;
+    color: #024b72;
+    position: relative;
+    overflow: hidden;
+    padding: 10px 20px;
+    text-align: center;
+    z-index: 1;
+    transition: 0.5s;
+    font-family: "Inter";
+    font-weight: 600;
+    font-size: 13px;
+    background-color: transparent;
+    border: 1px solid #024b72;
+    color: #024b72;
+
+    span {
+      background-color: #024b72;
+    }
+
+    &:hover {
+      color: #fff;
+    }
+
+    &:hover span {
+      width: 400px;
+      height: 400px;
+    }
+
+    span {
+      position: absolute;
+      display: block;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
+      transform: translate(-50%, -50%);
+      z-index: -1;
+      top: 50%;
+      left: 50%;
+    }
   }
 
   .wrapper {
@@ -24,10 +67,11 @@
 
       nav {
         a {
+          margin-right: 15px;
           font-size: 18px;
           color: #2c2a49;
           font-family: "Poppins", sans-serif;
-          transition: .3s;
+          transition: 0.3s;
 
           &:hover {
             color: #ff5c00;
@@ -54,12 +98,11 @@
             height: 20px;
             right: -3px;
             top: -4px;
-            background: #00C6DB;
+            background: #00c6db;
             box-shadow: -2px 4px 10px rgba(0, 0, 0, 0.15);
             border-radius: 50%;
             line-height: 20px;
-            font-family: 'Poppins';
-            font-style: normal;
+            font-family: "Poppins";
             font-weight: 600;
             font-size: 16px;
             color: #fff;
@@ -76,19 +119,22 @@
         flex-direction: row;
         gap: 5px;
 
-        .login-btn {
+        .login-btn,
+        .register-btn,
+        .log-out {
           position: relative;
           overflow: hidden;
-          padding: 10px 20px 10px;
+          padding: 10px 20px;
           text-align: center;
           z-index: 1;
-          color: #ffffff;
-          transition: .5s;
-          background-color: #FF5C02;
-          font-family: 'inter';
-          font-style: normal;
+          transition: 0.5s;
+          font-family: "Inter";
           font-weight: 600;
           font-size: 13px;
+          background-color: transparent;
+          border: 1px solid #024b72;
+          color: #024b72;
+
 
           span {
             position: absolute;
@@ -96,12 +142,20 @@
             width: 0;
             height: 0;
             border-radius: 50%;
-            background-color: #024B72;
             transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
             transform: translate(-50%, -50%);
             z-index: -1;
             top: 50%;
             left: 50%;
+          }
+        }
+
+        .login-btn {
+          background-color: #ff5c02;
+          color: #ffffff;
+
+          span {
+            background-color: #024b72;
           }
 
           &:hover span {
@@ -110,39 +164,18 @@
           }
         }
 
-        .register-btn {
-          position: relative;
-          display: inline-flex;
-          overflow: hidden;
-          padding: 10px 20px 10px;
-          text-align: center;
-          z-index: 1;
-          color: #ffffff;
-          transition: .5s;
-          background-color: #ff5b0200;
-          font-family: 'inter';
-          font-style: normal;
-          font-weight: 600;
-          font-size: 13px;
-          border: 1px solid #024B72;
-          color: #024B72;
-
-          &:hover {
-            color: #fff
-          }
+        .register-btn,
+        .log-out {
+          background-color: transparent;
+          border: 1px solid #024b72;
+          color: #024b72;
 
           span {
-            position: absolute;
-            display: block;
-            width: 0;
-            height: 0;
-            border-radius: 50%;
-            background-color: #024B72;
-            transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
-            transform: translate(-50%, -50%);
-            z-index: -1;
-            top: 50%;
-            left: 50%;
+            background-color: #024b72;
+          }
+
+          &:hover {
+            color: #fff;
           }
 
           &:hover span {
@@ -155,7 +188,7 @@
       .circle {
         width: 50px;
         height: 50px;
-        background: #FFFFFF;
+        background: #ffffff;
         box-shadow: 0px 0px 40px rgba(0, 0, 0, 0.15);
         border-radius: 30px;
         text-align: center;
@@ -172,53 +205,12 @@
   }
 
   .username {
-    font-family: inter;
+    font-family: "Inter";
   }
 
-  .log-out {
-    position: relative;
-    display: inline-flex;
-    overflow: hidden;
-    padding: 10px 20px 10px;
-    text-align: center;
-    z-index: 1;
-    color: #ffffff;
-    transition: .5s;
-    background-color: #ff5b0200;
-    font-family: 'inter';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 13px;
-    border: 1px solid #024B72;
-    color: #024B72;
-
-    &:hover {
-      color: #fff
-    }
-
-    span {
-      position: absolute;
-      display: block;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background-color: #024B72;
-      transition: width 0.4s ease-in-out, height 0.4s ease-in-out;
-      transform: translate(-50%, -50%);
-      z-index: -1;
-      top: 50%;
-      left: 50%;
-    }
-
-    &:hover span {
-      width: 400px;
-      height: 400px;
-    }
-  }
-
-  // Стили для бургер-меню
+  // Styles for burger menu
   .burger-menu {
-    display: none; // Скрыто на десктопе
+    display: none;
     cursor: pointer;
     margin-right: 15px;
 
@@ -235,7 +227,7 @@
     }
   }
 
-  // Отображение навигационного меню при открытом бургер-меню
+  // Navigation menu styles when burger menu is open
   nav.open {
     display: flex;
     flex-direction: column;
@@ -262,8 +254,6 @@
     }
   }
 
-  /* Header.scss */
-
   .loading-screen {
     position: fixed;
     top: 0;
@@ -281,41 +271,41 @@
     animation: rotate 1s infinite;
     height: 50px;
     width: 50px;
-  }
 
-  .loader:before,
-  .loader:after {
-    border-radius: 50%;
-    content: "";
-    display: block;
-    height: 20px;
-    width: 20px;
-  }
+    &:before,
+    &:after {
+      border-radius: 50%;
+      content: "";
+      display: block;
+      height: 20px;
+      width: 20px;
+    }
 
-  .loader:before {
-    animation: ball1 1s infinite;
-    background-color: #fff;
-    box-shadow: 30px 0 0 #ff3d00;
-    margin-bottom: 10px;
-  }
+    &:before {
+      animation: ball1 1s infinite;
+      background-color: #fff;
+      box-shadow: 30px 0 0 #ff3d00;
+      margin-bottom: 10px;
+    }
 
-  .loader:after {
-    animation: ball2 1s infinite;
-    background-color: #ff3d00;
-    box-shadow: 30px 0 0 #fff;
+    &:after {
+      animation: ball2 1s infinite;
+      background-color: #ff3d00;
+      box-shadow: 30px 0 0 #fff;
+    }
   }
 
   @keyframes rotate {
     0% {
-      transform: rotate(0deg) scale(0.8)
+      transform: rotate(0deg) scale(0.8);
     }
 
     50% {
-      transform: rotate(360deg) scale(1.2)
+      transform: rotate(360deg) scale(1.2);
     }
 
     100% {
-      transform: rotate(720deg) scale(0.8)
+      transform: rotate(720deg) scale(0.8);
     }
   }
 
@@ -353,4 +343,31 @@
     }
   }
 
+  .nav-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  @media (max-width: 1110px) {
+    .nav-menu {
+      display: none;
+    }
+
+    .nav-menu.open {
+      flex-direction: column;
+      position: absolute;
+      top: 70px;
+      left: 0;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+    }
+
+    .nav-btn {
+      display: block;
+    }
+  }
 }

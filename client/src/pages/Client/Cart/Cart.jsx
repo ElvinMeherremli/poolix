@@ -4,9 +4,10 @@ import "./Cart.scss";
 import { BasketContext } from "../../../context/BaksetContext";
 import { UserApi } from "../../../context/ContextApi";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 function Cart() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const { basket, setBasket } = useContext(BasketContext);
   const { UserApiData } = useContext(UserApi);
 
@@ -29,7 +30,9 @@ function Cart() {
   useEffect(() => {
     const fetchUserData = async (userId) => {
       try {
-        const response = await axios.get(`http://localhost:1212/api/users/${userId}`);
+        const response = await axios.get(
+          `http://localhost:1212/api/users/${userId}`
+        );
         const userData = response.data;
         if (userData && userData.busket) {
           setBasket(userData.busket);
@@ -62,7 +65,9 @@ function Cart() {
 
   const updateUserBasketInDB = async (userId, basket) => {
     try {
-      await axios.patch(`http://localhost:1212/api/users/${userId}`, { busket: basket });
+      await axios.patch(`http://localhost:1212/api/users/${userId}`, {
+        busket: basket,
+      });
     } catch (error) {
       console.error("Failed to update basket in the database:", error);
     }
@@ -84,6 +89,11 @@ function Cart() {
 
   return (
     <div className="cart-section bg-white pt-40">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Cart</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <div className="container">
         <div className="relative">
           <table className="w-full mx-4 text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">

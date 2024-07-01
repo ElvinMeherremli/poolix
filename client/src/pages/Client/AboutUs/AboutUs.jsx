@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet"
 import AboutPoolix from "./Components/AboutPoolix/AboutPoolix"
 import ContactUs from "./Components/ContactUs/ContactUs"
 import FunFucts from "./Components/FunFucts/FunFucts"
@@ -12,6 +13,11 @@ import Workers from "./Components/Workers/Workers"
 function AboutUs() {
   return (
     <>
+    <Helmet>
+        <meta charSet="utf-8" />
+        <title>About Us</title>
+        <link rel="canonical" href="http://mysite.com/example" />
+      </Helmet>
       <MainTop/>
       <AboutPoolix/>
       <Services/>
