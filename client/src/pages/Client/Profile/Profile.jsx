@@ -1,13 +1,12 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useContext, useState, useEffect } from "react";
 import { UserApi } from "../../../context/ContextApi";
 import { Modal } from "flowbite-react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
-import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
-import { Pagination } from "swiper/modules";
 import { useDropzone } from "react-dropzone";
 import "./Profile.scss";
 import { AppContext } from "../../../context/AppContext";
@@ -16,6 +15,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate
 import { Helmet } from "react-helmet";
 
 function Profile() {
+  // eslint-disable-next-line no-unused-vars
   const { UserApiData } = useContext(UserApi);
   const { triggerRerender } = useContext(AppContext);
   const [openModal1, setOpenModal1] = useState(false);

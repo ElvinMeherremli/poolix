@@ -10,12 +10,12 @@ import { BasketContext } from "../../../context/BaksetContext";
 function Header() {
   const { basket } = useContext(BasketContext);
   const navigate = useNavigate();
-  const location = useLocation(); // Importing useLocation to listen to route changes
+  const location = useLocation();
   const [scrolled, setScrolled] = useState(false);
   const [flexDirection, setFlexDirection] = useState("column");
   const [username, setUsername] = useState(null);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // State for opening/closing the mobile menu
-  const [isLoading, setIsLoading] = useState(false); // State for loading screen
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); 
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {

@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa6";
 import { IoShareSocialSharp } from "react-icons/io5";
 import "./Workers.scss";
@@ -5,6 +6,7 @@ import { useContext } from "react";
 import { WorkerApi } from "../../../../../context/ContextApi";
 import { useNavigate } from "react-router-dom";
 function Workers() {
+  // eslint-disable-next-line no-unused-vars
   const navigate = useNavigate()
   const { WorkerApiData } = useContext(WorkerApi);
   return (
